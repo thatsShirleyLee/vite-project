@@ -364,6 +364,7 @@ module.exports = {
 > 要做到这件事情，就需要利用husky**【在代码提交之前触发git hook(git在客户端的钩子)】**，然后执行`pnpm run format`来自动的格式化我们的代码。
 
 ### 2.5.1 安装husky
+
 ```zsh
 pnpm install -D husky
 ```
@@ -383,11 +384,15 @@ pnpm run format
 ```
 
 ## 2.6 配置commitlint
+
 ### 2.6.1 安装
+
 ```zsh
 pnpm add @commitlint/config-conventional @commitlint/cli -D
 ```
+
 ### 2.6.2 `commitlint.config.cjs`
+
 ```js
 module.exports = {
   extends: ['@commitlint/config-conventional'],
@@ -419,18 +424,25 @@ module.exports = {
   },
 }
 ```
+
 ### `package.json`
+
 ```json
 "scripts": {
     "commitlint": "commitlint --config commitlint.config.cjs -e -V"
   },
 ```
+
 #### 填写commit规范
->  `type(scope?):subject`
+
+> `type(scope?):subject`
+>
 > - type: 表示提交的类型，通常是一个单词，用来说明这次提交的目的。
 > - scope (可选): 表示影响的范围，可以是一个文件、一个模块、一个功能等。使用小括号 () 括起来。
 > - subject: 表示简要描述这次提交的内容。简洁明了，一般不超过50个字符。
+
 #### 常见type类型
+
 - `feat` | 新特性、新功能
 - `fix` | 修改bug
 - `docs` | 文档修改
@@ -441,13 +453,35 @@ module.exports = {
 - `chore` | 其他修改, 比如改变构建流程、或者增加依赖库、工具等
 - `revert` | 回滚到上一个版本
 - `build` | 编译相关的修改，例如发布版本、对项目构建或者依赖的改动
+
 ### 2.6.3 配置husky
+
 ```zsh
 npx husky add .husky/commit-msg
-```  
+```
+
 - 添加内容
+
 ```zsh
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 pnpm commitlint
 ```
+## 2.7 强制使用pnpm包管理器工具
+### 2.7.1 创建`scritps/preinstall.js`
+```js
+if (!/pnpm/.test(process.env.npm_execpath || '')) {
+  console.warn(
+    `\u001b[33mThis repository must using pnpm as the package manager ` +
+    ` for scripts to work properly.\u001b[39m\n`,
+  )
+  process.exit(1)
+}
+```
+### `package.json`
+```json
+"scripts": {
+    "preinstall": "node ./scripts/preinstall.js"
+  },
+```
+> **当我们使用npm或者yarn来安装包的时候，就会报错了。原理就是在install的时候会触发preinstall（npm提供的生命周期钩子）这个文件里面的代码。**
