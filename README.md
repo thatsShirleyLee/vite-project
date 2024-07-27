@@ -22,6 +22,7 @@
 7. 掌握主题颜色切换与暗黑模式的切换
 
 # 1. 项目构建
+
 ```zsh
 (base) shirley@thatsShirleyLeedeMacBook-Pro guigu_zhenxuan % pnpm create vite
 .../190efbc67cb-17264                    |   +1 +
@@ -38,7 +39,7 @@ Done. Now run:
   pnpm install
   pnpm run dev
 
-(base) shirley@thatsShirleyLeedeMacBook-Pro guigu_zhenxuan % cd vite-project 
+(base) shirley@thatsShirleyLeedeMacBook-Pro guigu_zhenxuan % cd vite-project
 (base) shirley@thatsShirleyLeedeMacBook-Pro vite-project % pnpm install
 Packages: +49
 +++++++++++++++++++++++++++++++++++++++++++++++++
@@ -67,13 +68,19 @@ Done in 4.1s
   ➜  Network: use --host to expose
   ➜  press h + enter to show help
 ```
+
 # 2. 配置
+
 ## 2.1 运行时浏览器自动打开
+
 ```json
 "dev": "vite --open", // add --open
 ```
+
 ## 2.2 配置`eslint`
+
 ### 2.2.1 安装
+
 ```zsh
 (base) shirley@thatsShirleyLeedeMacBook-Pro vite-project % pnpm i eslint -D
 Packages: +88
@@ -133,73 +140,79 @@ Successfully created /Users/shirley/Learn/尚硅谷前端技术文档/硅谷甄�
 Note that some plugins currently do not support ESLint v9 yet.
 You may need to use '--force' when installing
 ```
+
 ### 2.2.2 `.eslint.cjs`
+
 ```js
 // @see https://eslint.bootcss.com/docs/rules/
 
 module.exports = {
-    env: {
-        browser: true,
-        es2021: true,
-        node: true,
-        jest: true,
+  env: {
+    browser: true,
+    es2021: true,
+    node: true,
+    jest: true,
+  },
+  /* 指定如何解析语法 */
+  parser: 'vue-eslint-parser',
+  /** 优先级低于 parse 的语法解析配置 */
+  parserOptions: {
+    ecmaVersion: 'latest',
+    sourceType: 'module',
+    parser: '@typescript-eslint/parser',
+    jsxPragma: 'React',
+    ecmaFeatures: {
+      jsx: true,
     },
-    /* 指定如何解析语法 */
-    parser: 'vue-eslint-parser',
-    /** 优先级低于 parse 的语法解析配置 */
-    parserOptions: {
-        ecmaVersion: 'latest',
-        sourceType: 'module',
-        parser: '@typescript-eslint/parser',
-        jsxPragma: 'React',
-        ecmaFeatures: {
-            jsx: true,
-        },
-    },
-    /* 继承已有的规则 */
-    extends: [
-        'eslint:recommended',
-        'plugin:vue/vue3-essential',
-        'plugin:@typescript-eslint/recommended',
-        'plugin:prettier/recommended',
-    ],
-    plugins: ['vue', '@typescript-eslint'],
-    /*
-     * "off" 或 0    ==>  关闭规则
-     * "warn" 或 1   ==>  打开的规则作为警告（不影响代码执行）
-     * "error" 或 2  ==>  规则作为一个错误（代码不能执行，界面报错）
-     */
-    rules: {
-        // eslint（https://eslint.bootcss.com/docs/rules/）
-        'no-var': 'error', // 要求使用 let 或 const 而不是 var
-        'no-multiple-empty-lines': ['warn', { max: 1 }], // 不允许多个空行
-        'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
-        'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
-        'no-unexpected-multiline': 'error', // 禁止空余的多行
-        'no-useless-escape': 'off', // 禁止不必要的转义字符
+  },
+  /* 继承已有的规则 */
+  extends: [
+    'eslint:recommended',
+    'plugin:vue/vue3-essential',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:prettier/recommended',
+  ],
+  plugins: ['vue', '@typescript-eslint'],
+  /*
+   * "off" 或 0    ==>  关闭规则
+   * "warn" 或 1   ==>  打开的规则作为警告（不影响代码执行）
+   * "error" 或 2  ==>  规则作为一个错误（代码不能执行，界面报错）
+   */
+  rules: {
+    // eslint（https://eslint.bootcss.com/docs/rules/）
+    'no-var': 'error', // 要求使用 let 或 const 而不是 var
+    'no-multiple-empty-lines': ['warn', { max: 1 }], // 不允许多个空行
+    'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+    'no-unexpected-multiline': 'error', // 禁止空余的多行
+    'no-useless-escape': 'off', // 禁止不必要的转义字符
 
-        // typeScript (https://typescript-eslint.io/rules)
-        '@typescript-eslint/no-unused-vars': 'error', // 禁止定义未使用的变量
-        '@typescript-eslint/prefer-ts-expect-error': 'error', // 禁止使用 @ts-ignore
-        '@typescript-eslint/no-explicit-any': 'off', // 禁止使用 any 类型
-        '@typescript-eslint/no-non-null-assertion': 'off',
-        '@typescript-eslint/no-namespace': 'off', // 禁止使用自定义 TypeScript 模块和命名空间。
-        '@typescript-eslint/semi': 'off',
+    // typeScript (https://typescript-eslint.io/rules)
+    '@typescript-eslint/no-unused-vars': 'error', // 禁止定义未使用的变量
+    '@typescript-eslint/prefer-ts-expect-error': 'error', // 禁止使用 @ts-ignore
+    '@typescript-eslint/no-explicit-any': 'off', // 禁止使用 any 类型
+    '@typescript-eslint/no-non-null-assertion': 'off',
+    '@typescript-eslint/no-namespace': 'off', // 禁止使用自定义 TypeScript 模块和命名空间。
+    '@typescript-eslint/semi': 'off',
 
-        // eslint-plugin-vue (https://eslint.vuejs.org/rules/)
-        'vue/multi-word-component-names': 'off', // 要求组件名称始终为 “-” 链接的单词
-        'vue/script-setup-uses-vars': 'error', // 防止<script setup>使用的变量<template>被标记为未使用
-        'vue/no-mutating-props': 'off', // 不允许组件 prop的改变
-        'vue/attribute-hyphenation': 'off', // 对模板中的自定义组件强制执行属性命名样式
-    },
+    // eslint-plugin-vue (https://eslint.vuejs.org/rules/)
+    'vue/multi-word-component-names': 'off', // 要求组件名称始终为 “-” 链接的单词
+    'vue/script-setup-uses-vars': 'error', // 防止<script setup>使用的变量<template>被标记为未使用
+    'vue/no-mutating-props': 'off', // 不允许组件 prop的改变
+    'vue/attribute-hyphenation': 'off', // 对模板中的自定义组件强制执行属性命名样式
+  },
 }
 ```
+
 ### 2.2.3 `.eslintignore`
+
 ```
 dist
 node_modules
 ```
+
 ### 2.2.4 `package.json`
+
 ```json
  "scripts": {
     "dev": "vite --open",
@@ -209,14 +222,20 @@ node_modules
     "fix": "eslint src --fix"  // add 修复语法错误
   },
 ```
+
 ## 2.3 配置prettier
+
 eslint: 语法
 prettier: 格式
+
 ### 2.3.1 安装
+
 ```zsh
 pnpm install -D eslint-plugin-prettier prettier eslint-config-prettier
 ```
+
 ### 2.3.2 `prettierrc.json`添加规则
+
 ```json
 {
   "singleQuote": true,
@@ -228,7 +247,9 @@ pnpm install -D eslint-plugin-prettier prettier eslint-config-prettier
   "tabWidth": 2
 }
 ```
+
 ### 2.3.3 `.prettierignore`
+
 ```
 /dist/*
 /html/*
@@ -240,11 +261,15 @@ pnpm install -D eslint-plugin-prettier prettier eslint-config-prettier
 ```
 
 ## 2.4 配置stylelint
+
 ### 2.4.1 安装
+
 ```zsh
 pnpm add sass sass-loader stylelint postcss postcss-scss postcss-html stylelint-config-prettier stylelint-config-recess-order stylelint-config-recommended-scss stylelint-config-standard stylelint-config-standard-vue stylelint-scss stylelint-order stylelint-config-standard-scss -D
 ```
+
 ### 2.4.2 `.stylelintrc.cjs`
+
 ```js
 // @see https://stylelint.bootcss.com/
 
@@ -300,19 +325,24 @@ module.exports = {
   },
 }
 ```
+
 ### 2.4.3 `.stylelintignore`
+
 ```
 /node_modules/*
 /dist/*
 /html/*
 /public/*
 ```
+
 ### 2.4.4 `package.json`
+
 ```json
 "scripts": {
     "lint:style": "stylelint src/**/*.{css,scss,vue} --cache --fix"
   },
 ```
+
 - 统一的脚本
   ```json
   "scripts": {
@@ -326,6 +356,9 @@ module.exports = {
     "lint:style": "stylelint src/**/*.{css,scss,vue} --cache --fix"
   },
   ```
+
 # 2.5 配置husky
+
 在上面我们已经集成好了我们代码校验工具，但是需要每次手动的去执行命令才会格式化我们的代码。如果有人没有格式化就提交了远程仓库中，那这个规范就没什么用。所以我们需要**【强制让开发人员按照代码规范来提交】**。
->要做到这件事情，就需要利用husky**【在代码提交之前触发git hook(git在客户端的钩子)】**，然后执行`pnpm run format`来自动的格式化我们的代码。
+
+> 要做到这件事情，就需要利用husky**【在代码提交之前触发git hook(git在客户端的钩子)】**，然后执行`pnpm run format`来自动的格式化我们的代码。
