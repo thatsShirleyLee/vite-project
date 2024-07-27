@@ -36,6 +36,6 @@ export default defineConfig(({ command, mode }) => {
           additionalData: '@import "./src/styles/variable.scss";',
         },
       },
-    }
+    },
   }
 })
