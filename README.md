@@ -362,3 +362,92 @@ module.exports = {
 在上面我们已经集成好了我们代码校验工具，但是需要每次手动的去执行命令才会格式化我们的代码。如果有人没有格式化就提交了远程仓库中，那这个规范就没什么用。所以我们需要**【强制让开发人员按照代码规范来提交】**。
 
 > 要做到这件事情，就需要利用husky**【在代码提交之前触发git hook(git在客户端的钩子)】**，然后执行`pnpm run format`来自动的格式化我们的代码。
+
+### 2.5.1 安装husky
+```zsh
+pnpm install -D husky
+```
+
+### 2.5.2 配置husky
+
+```shell
+npx husky-init
+```
+
+### 2.5.3 配置`.husky/pre-commit`
+
+```zsh
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+pnpm run format
+```
+
+## 2.6 配置commitlint
+### 2.6.1 安装
+```zsh
+pnpm add @commitlint/config-conventional @commitlint/cli -D
+```
+### 2.6.2 `commitlint.config.cjs`
+```js
+module.exports = {
+  extends: ['@commitlint/config-conventional'],
+  // 校验规则
+  rules: {
+    'type-enum': [
+      2,
+      'always',
+      [
+        'feat',
+        'fix',
+        'docs',
+        'style',
+        'refactor',
+        'perf',
+        'test',
+        'chore',
+        'revert',
+        'build',
+      ],
+    ],
+    'type-case': [0],
+    'type-empty': [0],
+    'scope-empty': [0],
+    'scope-case': [0],
+    'subject-full-stop': [0, 'never'],
+    'subject-case': [0, 'never'],
+    'header-max-length': [0, 'always', 72],
+  },
+}
+```
+### `package.json`
+```json
+"scripts": {
+    "commitlint": "commitlint --config commitlint.config.cjs -e -V"
+  },
+```
+#### 填写commit规范
+>  `type(scope?):subject`
+> - type: 表示提交的类型，通常是一个单词，用来说明这次提交的目的。
+> - scope (可选): 表示影响的范围，可以是一个文件、一个模块、一个功能等。使用小括号 () 括起来。
+> - subject: 表示简要描述这次提交的内容。简洁明了，一般不超过50个字符。
+#### 常见type类型
+- `feat` | 新特性、新功能
+- `fix` | 修改bug
+- `docs` | 文档修改
+- `style` | 代码格式修改, 注意不是 css 修改
+- `refactor` | 代码重构
+- `perf` | 优化相关，比如提升性能、体验
+- `test` | 测试用例修改
+- `chore` | 其他修改, 比如改变构建流程、或者增加依赖库、工具等
+- `revert` | 回滚到上一个版本
+- `build` | 编译相关的修改，例如发布版本、对项目构建或者依赖的改动
+### 2.6.3 配置husky
+```zsh
+npx husky add .husky/commit-msg
+```  
+- 添加内容
+```zsh
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+pnpm commitlint
+```
