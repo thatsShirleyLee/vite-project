@@ -1,6 +1,6 @@
 <script setup lang="ts">
-  import {Plus} from '@element-plus/icons-vue'
-  import SvgIcon from '@/components/SvgIcon/index.vue'
+import { Plus } from '@element-plus/icons-vue'
+import SvgIcon from '@/components/SvgIcon/index.vue'
 </script>
 
 <template>
@@ -14,9 +14,9 @@
 </template>
 
 <style scoped lang="scss">
-div{
-  h1{
-    color: $color;
+div {
+  h1 {
+    color: $base-color;
   }
 }
 </style>
