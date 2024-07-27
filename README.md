@@ -467,21 +467,27 @@ npx husky add .husky/commit-msg
 . "$(dirname -- "$0")/_/husky.sh"
 pnpm commitlint
 ```
+
 ## 2.7 强制使用pnpm包管理器工具
+
 ### 2.7.1 创建`scritps/preinstall.js`
+
 ```js
 if (!/pnpm/.test(process.env.npm_execpath || '')) {
   console.warn(
     `\u001b[33mThis repository must using pnpm as the package manager ` +
-    ` for scripts to work properly.\u001b[39m\n`,
+      ` for scripts to work properly.\u001b[39m\n`,
   )
   process.exit(1)
 }
 ```
+
 ### `package.json`
+
 ```json
 "scripts": {
     "preinstall": "node ./scripts/preinstall.js"
   },
 ```
+
 > **当我们使用npm或者yarn来安装包的时候，就会报错了。原理就是在install的时候会触发preinstall（npm提供的生命周期钩子）这个文件里面的代码。**
