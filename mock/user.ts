@@ -1,3 +1,4 @@
+// https://www.npmjs.com/package/vite-plugin-mock/v/2.9.6
 //用户信息数据
 function createUserList() {
   // 此函数执行会返回一个数组，数组里面包含两个用户信息
@@ -58,7 +59,7 @@ export default [
     response: (request) => {
       //获取请求头携带token
       const token = request.headers.token
-      //查看用户信息是否包含有次token用户
+      //查看用户信息是否包含有此token用户
       const checkUser = createUserList().find((item) => item.token === token)
       //没有返回失败的信息
       if (!checkUser) {
