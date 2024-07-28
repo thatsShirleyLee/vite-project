@@ -10,7 +10,7 @@ enum API {
 
 // 登录接口方法
 export const reqLogin = (data: LoginForm) =>
-  request.post<any, loginResponseData>(API.LOGIN_URL, data)  // loginResponseData example{ code: 200, data: { token } }
+  request.post<any, loginResponseData>(API.LOGIN_URL, data) // loginResponseData example{ code: 200, data: { token } }
 // 获取用户信息接口方法
 export const reqUserInfo = () =>
-  request.get<any, userInfoResponseData>(API.USERINFOR_URL)  // userInfoResponseData example { code: 200, data: { checkUser } }
+  request.get<any, userInfoResponseData>(API.USERINFOR_URL) // userInfoResponseData example { code: 200, data: { checkUser } }

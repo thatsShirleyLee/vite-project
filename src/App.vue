@@ -1,6 +1,6 @@
 <script setup lang="ts">
-  import { reqLogin, reqUserInfo } from '@/api/user/user'
-  reqLogin({username: 'admin', password: '111111'})
+import { reqLogin, reqUserInfo } from '@/api/user/user'
+reqLogin({ username: 'admin', password: '111111' })
 </script>
 
 <template>
