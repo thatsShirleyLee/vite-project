@@ -522,4 +522,17 @@ if (!/pnpm/.test(process.env.npm_execpath || '')) {
     # 在安装项目依赖之前运行 ./scripts/preinstall.js 脚本，可以用来进行一些预处理操作
     "preinstall": "node ./scripts/preinstall.js"
   },
+  ,
+  "lint-staged": {
+    "src/**/*.{ts,vue}": ["eslint --fix", "prettier --write"]
+  },
 }
+```
+
+```json
+"lint-staged": {
+  "src/**/*.{ts,vue}": "eslint --cache --fix",
+  "src/**/*.{css,scss,vue}": "stylelint  --cache --fix",
+  "src/**/*.{html,vue,ts,js,json,md}": "prettier --write"
+}
+```
