@@ -20,7 +20,7 @@
     "precommit": "lint-staged"
   },
   "lint-staged": {
-    "src/**/*.{ts,vue}": ["prettier --write"]
+    "src/**/*.{ts,vue}": ["eslint --fix", "prettier --write"]
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.3.1",
