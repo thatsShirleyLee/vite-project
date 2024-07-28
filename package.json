@@ -10,7 +10,7 @@
     "build:pro": "vue-tsc && vite build --mode production",
     "preview": "vite preview",
     "prepare": "husky install",
-    "preinstall": "node ./scripts/preinstall.js", 
+    "preinstall": "node ./scripts/preinstall.js",
     "lint": "eslint src",
     "fix": "eslint src --fix",
     "lint:eslint": "eslint src/**/*.{ts,vue} --cache --fix",
@@ -20,15 +20,14 @@
     "precommit": "lint-staged"
   },
   "lint-staged": {
-    "src/**/*.{ts,vue}": "eslint --cache --fix",
-    "src/**/*.{css,scss,vue}": "stylelint  --cache --fix",
-    "src/**/*.{html,vue,ts,js,json,md}": "prettier --write"
+    "src/**/*.{ts,vue}": ["prettier --write"]
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.3.1",
     "axios": "^1.7.2",
     "element-plus": "^2.7.8",
-    "vue": "^3.4.31"
+    "vue": "^3.4.31",
+    "vue-router": "^4.4.0"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.24.8",
