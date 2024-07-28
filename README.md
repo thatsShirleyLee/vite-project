@@ -491,3 +491,35 @@ if (!/pnpm/.test(process.env.npm_execpath || '')) {
 ```
 
 > **当我们使用npm或者yarn来安装包的时候，就会报错了。原理就是在install的时候会触发preinstall（npm提供的生命周期钩子）这个文件里面的代码。**
+## 2.8 package.json
+
+```yaml
+{
+  "scripts": {
+    # 项目运行指令
+    "dev": "vite --open",
+    "build": "vue-tsc -b && vite build",
+    "build:test": "vue-tsc && vite build --mode test",
+    "build:pro": "vue-tsc && vite build --mode production",
+    # 启动 Vite 预览服务器以查看构建后的项目
+    "preview": "vite preview",
+    # 使用 ESLint 对 src 目录下的所有文件进行代码检查
+    "lint": "eslint src",
+    # 使用 ESLint 对 src 目录下的所有文件进行代码检查，并自动修复可以修复的问题
+    "fix": "eslint src --fix",
+    # 使用 Prettier 格式化项目中的所有 HTML、Vue、TypeScript、JavaScript、JSON 和 Markdown 文件
+    "format": "prettier --write \"./**/*.{html,vue,ts,js,json,md}\"",
+    # 使用 ESLint 对 src 目录下的所有 TypeScript 和 Vue 文件进行代码检查，并自动修复，同时启用缓存以提高性能
+    "lint:eslint": "eslint src/**/*.{ts,vue} --cache --fix",
+    # 使用 Stylelint 对 src 目录下的所有 CSS、SCSS 和 Vue 文件进行代码样式检查，并自动修复，同时启用缓存以提高性能
+    "lint:style": "stylelint src/**/*.{css,scss,vue} --cache --fix",
+    # 安装 Husky 钩子，确保在代码仓库中正确设置 Husky
+    "prepare": "husky install", 
+    # 使用 Commitlint 验证提交信息格式，确保提交信息符合约定的规范
+    "commitlint": "commitlint --config commitlint.config.cjs -e -V",
+    # commit触发 pre-commit 钩子，lint-staged 会对暂存的文件运行配置的 linter 和格式化工具
+    "precommit": "lint-staged",
+    # 在安装项目依赖之前运行 ./scripts/preinstall.js 脚本，可以用来进行一些预处理操作
+    "preinstall": "node ./scripts/preinstall.js"
+  },
+}
