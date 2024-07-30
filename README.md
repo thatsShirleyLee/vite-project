@@ -491,6 +491,7 @@ if (!/pnpm/.test(process.env.npm_execpath || '')) {
 ```
 
 > **当我们使用npm或者yarn来安装包的时候，就会报错了。原理就是在install的时候会触发preinstall（npm提供的生命周期钩子）这个文件里面的代码。**
+
 ## 2.8 package.json
 
 ```yaml
@@ -514,7 +515,7 @@ if (!/pnpm/.test(process.env.npm_execpath || '')) {
     # 使用 Stylelint 对 src 目录下的所有 CSS、SCSS 和 Vue 文件进行代码样式检查，并自动修复，同时启用缓存以提高性能
     "lint:style": "stylelint src/**/*.{css,scss,vue} --cache --fix",
     # 安装 Husky 钩子，确保在代码仓库中正确设置 Husky
-    "prepare": "husky install", 
+    "prepare": "husky install",
     # 使用 Commitlint 验证提交信息格式，确保提交信息符合约定的规范
     "commitlint": "commitlint --config commitlint.config.cjs -e -V",
     # commit触发 pre-commit 钩子，lint-staged 会对暂存的文件运行配置的 linter 和格式化工具
