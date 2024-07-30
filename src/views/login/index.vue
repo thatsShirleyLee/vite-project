@@ -4,18 +4,48 @@ import { reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import useUserStore from '@/store/modules/user'
 import { ElNotification } from 'element-plus'
-
+import { getTime } from '@/utils/time'
+// 收集账号和密码的表单数据
 let loginForm = reactive({
   username: 'admin',
   password: '111111',
 })
-
-const $router = useRouter() // 用于在组件中访问路由实例
+// 用于在组件中访问路由实例
+const $router = useRouter()
+// 用户相关仓库
 const userStore = useUserStore()
+// 定义表单校验需要的配置对象
+const rules = {
+  username: [
+    {
+      required: true,
+      min: 5,
+      max: 10,
+      message: '长度应为5-10位',
+      trigger: 'change',
+    }, // trigger: 触发校验表单的时机 change -> 文本发生变化触发校验, blur: 失去焦点的时候触发校验规则
+  ],
+  password: [
+    {
+      required: true,
+      min: 6,
+      max: 10,
+      message: '长度应为6-15位',
+      trigger: 'change',
+    },
+  ],
+}
+// 获取el-form组件
+let loginForms = ref() // el-form的别名
+// 控制按钮加载效果
 let loading = ref(false)
 // 登录按钮响应事件
 const login = async () => {
   loading.value = true
+  // 保证所有表单数据校验通过再发请求
+  /* const result = loginForms.value.validate()
+  console.log(result) */
+  await loginForms.value.validate() // validate返回一个Promise对象
   try {
     // 发请求
     await userStore.userLogin(loginForm)
@@ -24,7 +54,8 @@ const login = async () => {
     ElNotification({
       // 弹窗提醒
       type: 'success',
-      message: '登录成功',
+      message: '欢迎回来',
+      title: `Hi, ${getTime()}好！`,
     })
     loading.value = false
   } catch (error) {
@@ -44,16 +75,21 @@ const login = async () => {
     <el-row>
       <el-col :span="12" :xs="0"></el-col>
       <el-col :span="12" :xs="24">
-        <el-form class="login_form">
+        <el-form
+          class="login_form"
+          :model="loginForm"
+          :rules="rules"
+          ref="loginForms"
+        >
           <h1>Hello</h1>
           <h2>欢迎来到硅谷甄选</h2>
-          <el-form-item>
+          <el-form-item prop="username">
             <el-input
               :prefix-icon="User"
               v-model="loginForm.username"
             ></el-input>
           </el-form-item>
-          <el-form-item>
+          <el-form-item prop="password">
             <el-input
               :prefix-icon="Lock"
               type="password"
