@@ -1,4 +1,4 @@
-<script setup lang="ts"></script>
+<script setup lang="ts" name="Pagination"></script>
 
 <template>
   <div>分页器全局组件</div>

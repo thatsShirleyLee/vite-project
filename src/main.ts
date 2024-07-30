@@ -13,6 +13,8 @@ import gloablComponent from './components/index'
 import '@/styles/index.scss'
 // 引入路由
 import router from './router'
+// 引入pinia
+import pinia from './store'
 
 // 获取应用实例对象
 const app = createApp(App)
@@ -25,6 +27,8 @@ app.use(ElementPlus, {
 app.use(gloablComponent)
 // 注册模板路由
 app.use(router)
+// 注册pinia
+app.use(pinia)
 
 // 挂载应用实例对象
 app.mount('#app')

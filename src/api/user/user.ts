@@ -9,7 +9,7 @@ enum API {
 // 暴露请求函数
 
 // 登录接口方法
-export const reqLogin = (data: LoginForm) =>
+export const reqLogin = (data: loginForm) =>
   request.post<any, loginResponseData>(API.LOGIN_URL, data) // loginResponseData example{ code: 200, data: { token } }
 // 获取用户信息接口方法
 export const reqUserInfo = () =>

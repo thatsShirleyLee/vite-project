@@ -1,6 +1,11 @@
 // 对外暴露常量路由
 export const constantRoute = [
   {
+    path: '/',
+    name: 'layout',
+    component: () => import('@/layout/index.vue'),
+  },
+  {
     path: '/login',
     name: 'login',
     component: () => import('@/views/login/index.vue'),
