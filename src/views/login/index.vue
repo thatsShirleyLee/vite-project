@@ -14,27 +14,6 @@ let loginForm = reactive({
 const $router = useRouter()
 // 用户相关仓库
 const userStore = useUserStore()
-// 定义表单校验需要的配置对象
-const rules = {
-  username: [
-    {
-      required: true,
-      min: 5,
-      max: 10,
-      message: '长度应为5-10位',
-      trigger: 'change',
-    }, // trigger: 触发校验表单的时机 change -> 文本发生变化触发校验, blur: 失去焦点的时候触发校验规则
-  ],
-  password: [
-    {
-      required: true,
-      min: 6,
-      max: 10,
-      message: '长度应为6-15位',
-      trigger: 'change',
-    },
-  ],
-}
 // 获取el-form组件
 let loginForms = ref() // el-form的别名
 // 控制按钮加载效果
@@ -67,6 +46,32 @@ const login = async () => {
       message: (error as Error).message,
     })
   }
+}
+// 自定义校验规则函数
+const validateUsername = (rule: any, value: string, callback: any) => {
+  //rule：校验规则对象
+  //value:表单元素文本内容
+  //callback:符合条件，callback放行通过，不符合：注入错误提示信息
+  // if (/^d{5,10}$/.test(value)) {
+  if (value.length >= 5) {
+    callback()
+  } else {
+    callback(new Error('用户名长度不能小于5位'))
+  }
+}
+const validatePassword = (rule: any, value: string, callback: any) => {
+  if (value.length >= 6) {
+    callback()
+  } else {
+    callback(new Error('密码长度不能小于6位'))
+  }
+}
+// 定义表单校验需要的配置对象
+const rules = {
+  username: [
+    { validator: validateUsername, trigger: 'change' }, // 注意拼写：validator
+  ],
+  password: [{ validator: validatePassword, trigger: 'change' }],
 }
 </script>
 
