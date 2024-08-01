@@ -5,6 +5,19 @@ import { useRouter } from 'vue-router'
 import useUserStore from '@/store/modules/user'
 import { ElNotification } from 'element-plus'
 import { getTime } from '@/utils/time'
+// 引入threejs以创建动态背景
+import { onMounted, onBeforeUnmount } from 'vue'
+import useVantaBackground from '.'
+let vantaRef = ref() // login_container 元素
+const { initVanta, destroyVanta } = useVantaBackground(vantaRef)
+onMounted(() => {
+  console.log('加载背景')
+  initVanta()
+})
+onBeforeUnmount(() => {
+  destroyVanta()
+  console.log('销毁背景')
+})
 // 收集账号和密码的表单数据
 let loginForm = reactive({
   username: 'admin',
@@ -76,7 +89,7 @@ const rules = {
 </script>
 
 <template>
-  <div class="login_container">
+  <div ref="vantaRef" class="login_container">
     <el-row>
       <el-col :span="12" :xs="0"></el-col>
       <el-col :span="12" :xs="24">
@@ -123,18 +136,18 @@ const rules = {
 .login_container {
   width: 100%;
   height: 100vh;
-  background: url('@/assets/images/background.jpg') no-repeat center center;
-  background-size: cover;
+  // background: url('@/assets/images/background.jpg') no-repeat center center;
+  // background-size: cover;
 
   .login_form {
     position: relative;
     width: 80%;
     top: 30vh;
-    background: url('@/assets/images/login_form.png') no-repeat;
-    background-size: cover;
+    // background: url('@/assets/images/login_form.png') no-repeat;
+    // background-size: cover;
     padding: 40px;
-    border-radius: 20px;
-    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+    // border-radius: 20px;
+    // box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
 
     h1 {
       color: white;
