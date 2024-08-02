@@ -8,11 +8,17 @@ let request = axios.create({
   timeout: 5000, // 超时时间的设置
 })
 //请求拦截器
-request.interceptors.request.use((config) => {
-  // config.headers.token = '123' // 公共参数：每一次请求都会携带这个参数，所以是公共的
-  // console.log(config);
-  return config // 含有headers属性，携带公共参数发给服务器端
-})
+request.interceptors.request.use(
+  (config) => {
+    // config.headers.token = '123' // 公共参数：每一次请求都会携带这个参数，所以是公共的
+    // console.log(config);
+    return config // 含有headers属性，携带公共参数发给服务器端
+  },
+  (err) => {
+    // 对请求错误做些什么
+    return Promise.reject(err)
+  },
+)
 //响应拦截器
 request.interceptors.response.use(
   // 成功的回调

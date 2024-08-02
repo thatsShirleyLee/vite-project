@@ -58,6 +58,45 @@ export const constantRoute = [
       icon: 'Platform',
     },
   },
+  {
+    path: '/acl',
+    name: 'acl',
+    component: () => import('@/layout/index.vue'),
+    meta: {
+      title: '权限管理',
+      icon: 'Lock',
+    },
+    redirect: '/acl/user',
+    children: [
+      {
+        path: '/acl/user',
+        name: 'user',
+        component: () => import('@/views/acl/user/index.vue'),
+        meta: {
+          title: '用户管理',
+          icon: 'User',
+        },
+      },
+      {
+        path: '/acl/role',
+        name: 'role',
+        component: () => import('@/views/acl/role/index.vue'),
+        meta: {
+          title: '角色管理',
+          icon: 'UserFilled',
+        },
+      },
+      {
+        path: '/acl/permission',
+        name: 'permission',
+        component: () => import('@/views/acl/user/index.vue'),
+        meta: {
+          title: '菜单管理',
+          icon: 'Monitor',
+        },
+      },
+    ],
+  },
 ]
 // 对外暴露动态(异步)路由
 export const asyncRoute = [
@@ -146,5 +185,18 @@ export const asyncRoute = [
         },
       },
     ],
+  },
+]
+// 任意路由
+export const anyRoute = [
+  {
+    path: '/:pathMatch(.*)*',
+    redirect: '/404',
+    name: 'Any',
+    meta: {
+      title: '任意路由',
+      hidden: true,
+      icon: 'DataLine',
+    },
   },
 ]

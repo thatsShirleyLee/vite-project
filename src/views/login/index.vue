@@ -1,8 +1,8 @@
 <script setup lang="ts" name="LoginView">
 import { User, Lock } from '@element-plus/icons-vue'
 import { reactive, ref } from 'vue'
-import { useRouter } from 'vue-router'
-import useUserStore from '@/store/modules/user'
+import { useRouter, useRoute } from 'vue-router'
+import { useUserStore } from '@/store/modules/user'
 import { ElNotification } from 'element-plus'
 import { getTime } from '@/utils/time'
 // 引入threejs以创建动态背景
@@ -23,7 +23,9 @@ let loginForm = reactive({
   username: 'admin',
   password: '111111',
 })
+// const route = useRoute()
 // 用于在组件中访问路由实例
+const route = useRoute()
 const $router = useRouter()
 // 用户相关仓库
 const userStore = useUserStore()
@@ -42,7 +44,9 @@ const login = async () => {
     // 发请求
     await userStore.userLogin(loginForm)
     // 请求成功跳转
-    $router.push('/')
+    // 跳转(如果路径中有redirect参数，则跳转到redirect参数，否则跳转到首页)
+    const redirect: any = route.query.redirect
+    $router.push({ path: redirect || '/' })
     ElNotification({
       // 弹窗提醒
       type: 'success',

@@ -5,6 +5,7 @@ import type { loginForm, loginResponseData, userInfoResponseData } from './type'
 enum API {
   LOGIN_URL = '/user/login',
   USERINFOR_URL = '/user/info',
+  LOGOUT_URL = '/user/logout',
 }
 // 暴露请求函数
 
@@ -14,3 +15,5 @@ export const reqLogin = (data: loginForm) =>
 // 获取用户信息接口方法
 export const reqUserInfo = () =>
   request.get<any, userInfoResponseData>(API.USERINFOR_URL) // userInfoResponseData example { code: 200, data: { checkUser } }
+// 退出接口方法
+export const reqLogout = () => request.post<any, any>(API.LOGOUT_URL)

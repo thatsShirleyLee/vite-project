@@ -15,7 +15,6 @@ import '@/styles/index.scss'
 import router from './router'
 // 引入pinia
 import pinia from './store'
-import useUserStore from '@/store/modules/user'
 
 // 获取应用实例对象
 const app = createApp(App)
@@ -26,9 +25,11 @@ app.use(ElementPlus, {
 })
 // 安装自定义插件
 app.use(gloablComponent)
-// 注册模板路由
-app.use(router)
 // 注册pinia
 app.use(pinia)
+// 注册模板路由
+app.use(router)
+//引入路由鉴权文件
+import './permisstion'
 // 挂载应用实例对象
 app.mount('#app')

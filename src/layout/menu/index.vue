@@ -3,7 +3,6 @@ import { useRouter } from 'vue-router'
 // 获取父组件传递过来的全部路由数组
 defineProps(['menuList'])
 const $router = useRouter()
-console.log('@', $router)
 // 点击菜单项时回调函数, 参数为el-menu-item组件实例
 const goRoute = (vc: any) => {
   $router.push(vc.index)

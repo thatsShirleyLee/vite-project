@@ -25,7 +25,7 @@ import setting from '@/setting'
   }
   p {
     font-size: $base-logo-title-fontSize;
-    margin-left: 10px;
+    margin-left: 25px;
   }
 }
 </style>
