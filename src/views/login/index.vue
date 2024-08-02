@@ -11,12 +11,12 @@ import useVantaBackground from '.'
 let vantaRef = ref() // login_container 元素
 const { initVanta, destroyVanta } = useVantaBackground(vantaRef)
 onMounted(() => {
-  console.log('加载背景')
+  // console.log('加载背景')
   initVanta()
 })
 onBeforeUnmount(() => {
   destroyVanta()
-  console.log('销毁背景')
+  // console.log('销毁背景')
 })
 // 收集账号和密码的表单数据
 let loginForm = reactive({
