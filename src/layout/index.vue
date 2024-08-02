@@ -6,7 +6,9 @@ import Menu from './menu/index.vue'
 import Main from './main/index.vue'
 import Tabbar from './tabbar/index.vue'
 import { useUserStore } from '@/store/modules/user'
+import { useLayOutSettingStore } from '@/store/modules/setting'
 const userStore = useUserStore()
+const layOutSettingStore = useLayOutSettingStore()
 const $route = useRoute()
 // console.log('@', $route.path);
 </script>
@@ -24,6 +26,7 @@ const $route = useRoute()
           text-color="white"
           :default-active="$router.path"
           active-text-color="orange"
+          :collapse="layOutSettingStore.isCollapse"
         >
           <!-- default-active 页面加载时默认激活菜单的index -->
           <!-- 根据路由动态生成菜单 -->
@@ -32,11 +35,17 @@ const $route = useRoute()
       </el-scrollbar>
     </div>
     <!-- 顶部导航 -->
-    <div class="layout_tabbar">
+    <div
+      class="layout_tabbar"
+      :class="{ collapse: layOutSettingStore.isCollapse ? true : false }"
+    >
       <Tabbar></Tabbar>
     </div>
     <!-- 内容展示区域 -->
-    <div class="layout_main">
+    <div
+      class="layout_main"
+      :class="{ collapse: layOutSettingStore.isCollapse ? true : false }"
+    >
       <Main></Main>
     </div>
   </div>
@@ -67,6 +76,10 @@ const $route = useRoute()
     height: $base-tabbar-height;
     left: $base-menu-width;
     top: 0;
+    &.collapse {
+      width: calc(100% - $base-menu-min-width);
+      left: $base-menu-min-width;
+    }
   }
 
   .layout_main {
@@ -78,6 +91,10 @@ const $route = useRoute()
     background-color: pink;
     padding: 20px;
     overflow: auto;
+    &.collapse {
+      width: calc(100% - $base-menu-min-width);
+      left: $base-menu-min-width;
+    }
   }
 }
 </style>

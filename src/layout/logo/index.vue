@@ -5,7 +5,9 @@ import setting from '@/setting'
 <template>
   <div>
     <div class="logo" v-if="setting.logoHidden">
-      <img :src="setting.logo" alt="" />
+      <div class="logo-img">
+        <img :src="setting.logo" alt="" />
+      </div>
       <p>{{ setting.title }}</p>
     </div>
   </div>
@@ -18,14 +20,14 @@ import setting from '@/setting'
   color: white;
   display: flex;
   align-items: center;
-  padding: 20px;
+  padding: 10px;
   img {
     width: 40px;
     height: 40px;
   }
   p {
     font-size: $base-logo-title-fontSize;
-    margin-left: 25px;
+    margin-left: 20px;
   }
 }
 </style>

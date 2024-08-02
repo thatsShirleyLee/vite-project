@@ -19,7 +19,7 @@ export const constantRoute = [
     name: 'layout',
     component: () => import('@/layout/index.vue'),
     meta: {
-      title: 'layout',
+      title: '',
       hidden: false,
       icon: 'Avatar',
     },
