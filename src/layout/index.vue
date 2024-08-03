@@ -1,4 +1,7 @@
-<script setup lang="ts" name="Layout">
+<script setup lang="ts">
+defineOptions({
+  name: 'Layout',
+})
 //  获取路由对象
 import { useRoute } from 'vue-router'
 import Logo from './logo/index.vue'
@@ -9,14 +12,17 @@ import { useUserStore } from '@/store/modules/user'
 import { useLayOutSettingStore } from '@/store/modules/setting'
 const userStore = useUserStore()
 const layOutSettingStore = useLayOutSettingStore()
-const $route = useRoute()
-// console.log('@', $route.path);
+const route = useRoute()
+// console.log('@', route.path);
 </script>
 
 <template>
   <div class="layout_container">
     <!-- 左侧菜单 -->
-    <div class="layout_slider">
+    <div
+      class="layout_slider"
+      :class="{ collapse: layOutSettingStore.isCollapse ? true : false }"
+    >
       <Logo></Logo>
       <!-- 展示菜单 -->
       <!-- 滚动组件 -->
@@ -24,7 +30,7 @@ const $route = useRoute()
         <el-menu
           background-color="#001529"
           text-color="white"
-          :default-active="$router.path"
+          :default-active="route.path"
           active-text-color="orange"
           :collapse="layOutSettingStore.isCollapse"
         >
@@ -61,12 +67,16 @@ const $route = useRoute()
     height: 100vh;
     background: $base-menu-background;
     color: white;
+    transition: all 0.3s;
     .scrollbar {
       width: 100%;
       height: calc(100% - $base-menu-logo-height);
       .el-menu {
         border-right: none;
       }
+    }
+    &.collapse {
+      width: $base-menu-min-width;
     }
   }
 
@@ -76,6 +86,7 @@ const $route = useRoute()
     height: $base-tabbar-height;
     left: $base-menu-width;
     top: 0;
+    transition: all 0.3s;
     &.collapse {
       width: calc(100% - $base-menu-min-width);
       left: $base-menu-min-width;
@@ -91,6 +102,7 @@ const $route = useRoute()
     background-color: pink;
     padding: 20px;
     overflow: auto;
+    transition: all 0.3s;
     &.collapse {
       width: calc(100% - $base-menu-min-width);
       left: $base-menu-min-width;

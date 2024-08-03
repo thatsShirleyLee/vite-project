@@ -2,6 +2,9 @@
 import { useRouter } from 'vue-router'
 const router = useRouter()
 router.push('/login')
+defineOptions({
+  name: 'App',
+})
 </script>
 <template>
   <div>

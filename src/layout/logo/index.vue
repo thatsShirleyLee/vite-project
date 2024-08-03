@@ -1,11 +1,20 @@
 <script setup lang="ts">
+defineOptions({
+  name: 'Logo',
+})
 import setting from '@/setting'
+import { useLayOutSettingStore } from '@/store/modules/setting'
+const layOutSettingStore = useLayOutSettingStore()
+// 点击图标的切换
+const changeIcon = () => {
+  layOutSettingStore.isCollapse = !layOutSettingStore.isCollapse
+}
 </script>
 
 <template>
   <div>
     <div class="logo" v-if="setting.logoHidden">
-      <div class="logo-img">
+      <div class="logo-img" @click="changeIcon">
         <img :src="setting.logo" alt="" />
       </div>
       <p>{{ setting.title }}</p>

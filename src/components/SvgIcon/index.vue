@@ -1,4 +1,7 @@
-<script setup lang="ts" name="SvgIcon">
+<script setup lang="ts">
+defineOptions({
+  name: 'SvgIcon',
+})
 defineProps({
   //xlink:href属性值的前缀
   prefix: {

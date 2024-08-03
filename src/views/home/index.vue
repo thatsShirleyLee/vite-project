@@ -1,4 +1,8 @@
-<script setup lang="ts" name="HomeView"></script>
+<script setup lang="ts">
+defineOptions({
+  name: 'Home',
+})
+</script>
 
 <template>
   <h1>一级路由home</h1>

@@ -1,4 +1,4 @@
-<script setup lang="ts" name="LoginView">
+<script setup lang="ts">
 import { User, Lock } from '@element-plus/icons-vue'
 import { reactive, ref } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
@@ -8,6 +8,9 @@ import { getTime } from '@/utils/time'
 // 引入threejs以创建动态背景
 import { onMounted, onBeforeUnmount } from 'vue'
 import useVantaBackground from '.'
+defineOptions({
+  name: 'Login',
+})
 let vantaRef = ref() // login_container 元素
 const { initVanta, destroyVanta } = useVantaBackground(vantaRef)
 onMounted(() => {

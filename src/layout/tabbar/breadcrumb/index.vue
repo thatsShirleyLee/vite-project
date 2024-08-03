@@ -1,27 +1,32 @@
-<script setup lang="ts" name="Breadcrumb">
+<script setup lang="ts">
+defineOptions({
+  name: 'Breadcrumb',
+})
 import { useLayOutSettingStore } from '@/store/modules/setting'
 import { useRoute } from 'vue-router'
 import { ArrowRight } from '@element-plus/icons-vue'
 
 const layOutSettingStore = useLayOutSettingStore()
 // 获取路由对象
-const $route = useRoute()
+const route = useRoute()
 // 点击图标的切换
-const changeCollapse = () => {
+const changeIcon = () => {
   layOutSettingStore.isCollapse = !layOutSettingStore.isCollapse
 }
 </script>
 
 <template>
   <!-- 顶部左侧的图标 -->
-  <el-icon @click="changeCollapse">
-    <Expand></Expand>
+  <el-icon @click="changeIcon">
+    <component
+      :is="layOutSettingStore.isCollapse ? 'Fold' : 'Expand'"
+    ></component>
   </el-icon>
   <!-- 顶部左侧的面包屑 -->
   <el-breadcrumb :separator-icon="ArrowRight">
     <!-- 面包屑动态展示路由名字与标题 -->
     <el-breadcrumb-item
-      v-for="(item, index) in $route.matched"
+      v-for="(item, index) in route.matched"
       :key="index"
       v-show="item.meta.title"
       :to="item.path"

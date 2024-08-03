@@ -1,4 +1,7 @@
-<script setup lang="ts" name="Setting">
+<script setup lang="ts">
+defineOptions({
+  name: 'Setting',
+})
 import { useLayOutSettingStore } from '@/store/modules/setting'
 const layOutSettingStore = useLayOutSettingStore()
 const updateFresh = () => {
@@ -20,18 +23,8 @@ const fullScreen = () => {
 
 <template>
   <!-- 顶部右侧的面包屑 -->
-  <el-button
-    size="small"
-    icon="Refresh"
-    circle
-    @click="updateFresh"
-  ></el-button>
-  <el-button
-    size="small"
-    icon="FullScreen"
-    circle
-    @click="fullScreen"
-  ></el-button>
+  <el-button icon="Refresh" circle @click="updateFresh"></el-button>
+  <el-button icon="FullScreen" circle @click="fullScreen"></el-button>
   <el-popover placement="bottom" title="主题设置" :width="200" trigger="hover">
     <el-form>
       <el-form-item label="主题颜色">
@@ -43,28 +36,34 @@ const fullScreen = () => {
       </el-form-item>
     </el-form>
     <template #reference>
-      <el-button size="small" icon="Setting" circle></el-button>
+      <el-button icon="Setting" circle></el-button>
     </template>
   </el-popover>
   <img
     src="@/assets/icons/avatar.png"
-    style="width: 24px; height: 24px; margin: 0px 10px"
+    style="width: 32px; height: 32px; margin: 0px 12px"
   />
   <!-- 用户下拉菜单 -->
-  <el-dropdown>
+  <el-dropdown style="margin-right: 12px">
     <span class="el-dropdown-link">
-      admin
+      Admin
       <!-- <el-icon>
             <User></User>
           </el-icon> -->
       <el-icon class="el-icon--right"><ArrowDown /></el-icon>
     </span>
     <template #dropdown>
-      <el-dropdown-menu>
-        <el-dropdown-item>退出</el-dropdown-item>
+      <el-dropdown-menu
+        style="width: 120px; display: flex; justify-content: center"
+      >
+        <el-dropdown-item>退出帐户</el-dropdown-item>
       </el-dropdown-menu>
     </template>
   </el-dropdown>
 </template>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.el-dropdown-link {
+  font-weight: bold;
+}
+</style>

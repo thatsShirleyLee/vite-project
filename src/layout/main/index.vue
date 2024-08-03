@@ -1,4 +1,7 @@
-<script setup lang="ts" name="Main">
+<script setup lang="ts">
+defineOptions({
+  name: 'Main',
+})
 import { watch, ref, nextTick } from 'vue'
 // 使用layout的小仓库
 import { useLayOutSettingStore } from '@/store/modules/setting'

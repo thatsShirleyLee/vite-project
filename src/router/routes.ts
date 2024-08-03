@@ -89,10 +89,58 @@ export const constantRoute = [
       {
         path: '/acl/permission',
         name: 'permission',
-        component: () => import('@/views/acl/user/index.vue'),
+        component: () => import('@/views/acl/permission/index.vue'),
         meta: {
           title: '菜单管理',
           icon: 'Monitor',
+        },
+      },
+    ],
+  },
+  {
+    path: '/product',
+    name: 'product',
+    component: () => import('@/layout/index.vue'),
+    meta: {
+      title: '商品管理',
+      icon: 'Goods',
+    },
+    redirect: '/product/trademark',
+    children: [
+      {
+        path: '/product/trademark',
+        name: 'trademark',
+        component: () => import('@/views/product/trademark/index.vue'),
+        meta: {
+          title: '品牌管理',
+          icon: 'ShoppingCartFull',
+        },
+      },
+      {
+        path: '/product/attr',
+        name: 'attr',
+        component: () => import('@/views/product/attr/index.vue'),
+        meta: {
+          title: '属性管理',
+          icon: 'ChromeFilled',
+        },
+      },
+      {
+        path: '/product/spu',
+        name: 'spu', // 商品spu管理
+        component: () => import('@/views/product/spu/index.vue'),
+        meta: {
+          title: 'SPU管理',
+          icon: 'Calendar',
+        },
+      },
+      {
+        path: '/product/sku',
+        name: 'sku', // 商品sku管理
+        component: () => import('@/views/product/sku/index.vue'),
+        meta: {
+          title: 'SKU管理',
+          icon: 'Orange',
         },
       },
     ],
@@ -131,7 +179,7 @@ export const asyncRoute = [
       {
         path: '/acl/permission',
         name: 'permission',
-        component: () => import('@/views/acl/user/index.vue'),
+        component: () => import('@/views/acl/permission/index.vue'),
         meta: {
           title: '菜单管理',
           icon: 'Monitor',
@@ -147,6 +195,7 @@ export const asyncRoute = [
       title: '商品管理',
       icon: 'Goods',
     },
+    redirect: '/product/trademark',
     children: [
       {
         path: '/product/trademark',

@@ -1,4 +1,7 @@
-<script setup lang="ts" name="Menu">
+<script setup lang="ts">
+defineOptions({
+  name: 'Menu',
+})
 import { useRouter } from 'vue-router'
 // 获取父组件传递过来的全部路由数组
 defineProps(['menuList'])

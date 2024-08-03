@@ -1,4 +1,8 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+defineOptions({
+  name: 'Spu',
+})
+</script>
 
 <template>
   <div>spu管理页面</div>
