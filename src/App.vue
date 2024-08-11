@@ -5,7 +5,6 @@ router.push('/login')
 defineOptions({
   name: 'App',
 })
-// test git connect
 </script>
 <template>
   <div>

@@ -50,29 +50,34 @@ export const useUserStore = defineStore(
 
     const userInfo = async () => {
       // 获取用户信息
-      const res: userInfoResponseData = await reqUserInfo()
+      const res: userInfoResponseData = await reqUserInfo() // reqUserInfo请求的URL,要求request携带token,所以可以在请求拦截器中进行设置
+      // 存储用户信息
       if (res.code === 200) {
-        username.value = res.data.username
-        avatar.value = res.data.avatar
-        buttons.value = res.data.buttons
-        //计算当前用户需要展示的异步路由
-        const userAsyncRoute = filterAsyncRoute(
-          cloneDeep(asnycRoute),
-          res.data.routes,
-        )
-        //菜单需要的数据整理完毕
-        menuRoutes = [...constantRoute, ...userAsyncRoute, ...anyRoute]
-        //目前路由器管理的只有常量路由:用户计算完毕异步路由、任意路由动态追加
-        ;[...userAsyncRoute, ...anyRoute].forEach((route: any) => {
-          router.addRoute(route)
-        })
+        username.value = res.data.checkUser.username
+        avatar.value = res.data.checkUser.avatar
+        buttons.value = res.data.checkUser.buttons
+        // 计算当前用户需要展示的异步路由
+        // const userAsyncRoute = filterAsyncRoute(
+        //   cloneDeep(asnycRoute),
+        //   res.data.routes,
+        // )
+        // //菜单需要的数据整理完毕
+        // menuRoutes = [...constantRoute, ...userAsyncRoute, ...anyRoute]
+        // //目前路由器管理的只有常量路由:用户计算完毕异步路由、任意路由动态追加
+        // ;[...userAsyncRoute, ...anyRoute].forEach((route: any) => {
+        //   router.addRoute(route)
+        // })
       } else {
         return Promise.reject(new Error(res.data.message))
       }
     }
     const userLogout = async () => {
-      /* //退出登录请求
-      const res: any = await reqLogout()
+      //退出登录请求
+      token.value = ''
+      username.value = ''
+      avatar.value = ''
+      REMOVE_TOKEN()
+      /* const res: any = await reqLogout()
       if (res.code === 200) {
         //目前没有mock接口:退出登录接口(通知服务器本地用户唯一标识失效)
         token.value = ''
@@ -87,6 +92,8 @@ export const useUserStore = defineStore(
     return {
       token,
       username,
+      avatar,
+      buttons,
       menuRoutes,
       userLogin,
       userInfo,

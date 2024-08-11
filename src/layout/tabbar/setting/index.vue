@@ -3,6 +3,12 @@ defineOptions({
   name: 'Setting',
 })
 import { useLayOutSettingStore } from '@/store/modules/setting'
+import { useUserStore } from '@/store/modules/user'
+import { useRouter, useRoute } from 'vue-router'
+const router = useRouter()
+const route = useRoute()
+
+const userStore = useUserStore()
 const layOutSettingStore = useLayOutSettingStore()
 const updateFresh = () => {
   layOutSettingStore.refresh = !layOutSettingStore.refresh
@@ -18,6 +24,19 @@ const fullScreen = () => {
     // 退出全屏
     document.exitFullscreen()
   }
+}
+// 退出登录点击的回调
+const logout = () => {
+  // 1. 向服务器的退出登录接口发送请求（mock目前没有这个接口）
+  // 2. 清除登录状态，user仓库的数据
+  userStore.userLogout()
+  // 3. 跳转到登录页（保存当前的路由地址，如果登录就跳转到这个页面来）
+  router.push({
+    path: '/login',
+    query: {
+      redirect: route.path, // login页面发送登录请求后，判断route是否有redirect属性，如果有就跳转到这个地址，如果没有就跳转到首页
+    },
+  })
 }
 </script>
 
@@ -39,24 +58,27 @@ const fullScreen = () => {
       <el-button icon="Setting" circle></el-button>
     </template>
   </el-popover>
-  <img
+  <!-- 静态头像 -->
+  <!-- <img
     src="@/assets/icons/avatar.png"
+    style="width: 32px; height: 32px; margin: 0px 12px"
+  /> -->
+  <!-- 真实头像 -->
+  <img
+    :src="userStore.avatar"
     style="width: 32px; height: 32px; margin: 0px 12px"
   />
   <!-- 用户下拉菜单 -->
   <el-dropdown style="margin-right: 12px">
     <span class="el-dropdown-link">
-      Admin
-      <!-- <el-icon>
-            <User></User>
-          </el-icon> -->
-      <el-icon class="el-icon--right"><ArrowDown /></el-icon>
+      {{ userStore.username }}
+      <el-icon class="el-icon--right"><arrow-down /></el-icon>
     </span>
     <template #dropdown>
       <el-dropdown-menu
         style="width: 120px; display: flex; justify-content: center"
       >
-        <el-dropdown-item>退出帐户</el-dropdown-item>
+        <el-dropdown-item @click="logout">退出帐户</el-dropdown-item>
       </el-dropdown-menu>
     </template>
   </el-dropdown>

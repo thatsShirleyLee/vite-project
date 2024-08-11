@@ -1,6 +1,7 @@
 // 进行axios的二次封装：使用请求和响应拦截器
 import axios from 'axios'
 import { ElMessage } from 'element-plus'
+import { useUserStore } from '@/store/modules/user'
 // 创建一个axios实例（方便其他的配置，比如基础路径、超时时间等）
 let request = axios.create({
   // 基础路径
@@ -10,8 +11,11 @@ let request = axios.create({
 //请求拦截器
 request.interceptors.request.use(
   (config) => {
-    // config.headers.token = '123' // 公共参数：每一次请求都会携带这个参数，所以是公共的
-    // console.log(config);
+    // 获取用户相关的小仓库，获取token,登录成功以后携带给服务器端
+    const userStore = useUserStore()
+    if (userStore.token) {
+      config.headers.token = userStore.token // 公共参数：每一次请求都会携带这个参数，所以是公共的
+    }
     return config // 含有headers属性，携带公共参数发给服务器端
   },
   (err) => {
@@ -43,7 +47,7 @@ request.interceptors.response.use(
         break
       case 500:
         msg = '服务器出现问题'
-        break
+        break·
       default:
         msg = '无网络'
     }

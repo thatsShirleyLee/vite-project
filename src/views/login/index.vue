@@ -23,13 +23,12 @@ onBeforeUnmount(() => {
 })
 // 收集账号和密码的表单数据
 let loginForm = reactive({
-  username: 'admin',
-  password: '111111',
+  username: 'admin', // admin
+  password: '111111', // 111111
 })
-// const route = useRoute()
 // 用于在组件中访问路由实例
 const route = useRoute()
-const $router = useRouter()
+const router = useRouter()
 // 用户相关仓库
 const userStore = useUserStore()
 // 获取el-form组件
@@ -48,8 +47,10 @@ const login = async () => {
     await userStore.userLogin(loginForm)
     // 请求成功跳转
     // 跳转(如果路径中有redirect参数，则跳转到redirect参数，否则跳转到首页)
+    console.log('@', route.query)
+    // debugger // 设置断点
     const redirect: any = route.query.redirect
-    $router.push({ path: redirect || '/' })
+    router.push({ path: redirect || '/' })
     ElNotification({
       // 弹窗提醒
       type: 'success',

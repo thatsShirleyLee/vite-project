@@ -14,8 +14,9 @@ watch(
   () => {
     // 点击刷新按钮：路由组件销毁
     flag.value = false
+    // nextTick：保证DOM更新完毕后，重新渲染路由组件； nextTick可以获取更新完毕后的DOM
     nextTick(() => {
-      flag.value = true
+      flag.value = true // 重新创建 main 组件 （v-if可以销毁/创建组件）
     })
   },
 )
