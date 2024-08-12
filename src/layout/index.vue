@@ -19,10 +19,9 @@ const route = useRoute()
 <template>
   <div class="layout_container">
     <!-- 左侧菜单 -->
-    <div
-      class="layout_slider"
-      :class="{ collapse: layOutSettingStore.isCollapse ? true : false }"
-    >
+    <div class="layout_slider">
+      <!-- 去掉菜单栏的过渡动画 -->
+      <!-- :class="{ collapse: layOutSettingStore.isCollapse ? true : false }" -->
       <Logo></Logo>
       <!-- 展示菜单 -->
       <!-- 滚动组件 -->
@@ -33,6 +32,7 @@ const route = useRoute()
           :default-active="route.path"
           active-text-color="orange"
           :collapse="layOutSettingStore.isCollapse"
+          style="transition: all 0.1s"
         >
           <!-- default-active 页面加载时默认激活菜单的index -->
           <!-- 根据路由动态生成菜单 -->

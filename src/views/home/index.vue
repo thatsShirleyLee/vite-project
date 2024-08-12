@@ -2,14 +2,14 @@
 defineOptions({
   name: 'Home',
 })
-import { useUserStore } from '@/store/modules/user'
-import { onMounted } from 'vue'
-const userStore = useUserStore()
-// home组件挂载获取用户信息
-onMounted(() => {
-  // console.log('home组件挂载');
-  userStore.userInfo()
-})
+// import { useUserStore } from '@/store/modules/user'
+// import { onMounted } from 'vue'
+// const userStore = useUserStore()
+// // home组件挂载获取用户信息
+// onMounted(() => {
+//   // console.log('home组件挂载');
+//   userStore.userInfo()
+// })
 </script>
 
 <template>
