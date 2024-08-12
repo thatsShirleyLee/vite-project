@@ -26,10 +26,10 @@ const fullScreen = () => {
   }
 }
 // 退出登录点击的回调
-const logout = () => {
+const logout = async () => {
   // 1. 向服务器的退出登录接口发送请求（mock目前没有这个接口）
   // 2. 清除登录状态，user仓库的数据
-  userStore.userLogout()
+  await userStore.userLogout()
   // 3. 跳转到登录页（保存当前的路由地址，如果登录就跳转到这个页面来）
   router.push({
     path: '/login',

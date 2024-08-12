@@ -44,7 +44,7 @@ export const constantRoute = [
     component: () => import('@/views/404/index.vue'),
     meta: {
       title: '404',
-      hidden: false,
+      hidden: true,
       icon: 'DocumentDelete',
     },
   },

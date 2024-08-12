@@ -2,10 +2,10 @@ import { ref } from 'vue'
 // 创建用户相关的小仓库
 import { defineStore } from 'pinia'
 // 引入接口
-import { reqLogin, reqUserInfo, reqLogout } from '@/api/user/user'
+import { reqLogin, reqUserInfo, reqLogout } from '@/api/user'
 // 引入数据类型
 import type {
-  loginForm,
+  loginFormData,
   loginResponseData,
   userInfoResponseData,
 } from '@/api/user/type'
@@ -36,26 +36,26 @@ export const useUserStore = defineStore(
     let avatar = ref('') // 头像
     let buttons = ref([]) // 按钮
     let menuRoutes = ref(constantRoute) // 常量路由
-    const userLogin = async (data: loginForm) => {
+    const userLogin = async (data: loginFormData) => {
       const res: loginResponseData = await reqLogin(data) // 登录请求
       if (res.code === 200) {
-        token.value = res.data.token as string // 将token存储到仓库中
+        token.value = res.data as string // 将token存储到仓库中
         SET_TOKEN(token.value as string) //本地存储持久化存储一份
         // 保证当前async函数返回一个成功的promise对象
         return 'ok'
       } else {
-        return Promise.reject(new Error(res.data.message))
+        return Promise.reject(new Error(res.data))
       }
     }
 
     const userInfo = async () => {
       // 获取用户信息
       const res: userInfoResponseData = await reqUserInfo() // reqUserInfo请求的URL,要求request携带token,所以可以在请求拦截器中进行设置
+      // console.log('用户信息', res);
       // 存储用户信息
       if (res.code === 200) {
-        username.value = res.data.checkUser.username
-        avatar.value = res.data.checkUser.avatar
-        buttons.value = res.data.checkUser.buttons
+        username.value = res.data.name
+        avatar.value = res.data.avatar
         // 计算当前用户需要展示的异步路由
         // const userAsyncRoute = filterAsyncRoute(
         //   cloneDeep(asyncRoute),
@@ -72,14 +72,10 @@ export const useUserStore = defineStore(
       }
     }
     const userLogout = async () => {
-      //退出登录请求
-      token.value = ''
-      username.value = ''
-      avatar.value = ''
-      REMOVE_TOKEN()
-      /* const res: any = await reqLogout()
+      // 退出登录请求
+      const res: any = await reqLogout()
       if (res.code === 200) {
-        //目前没有mock接口:退出登录接口(通知服务器本地用户唯一标识失效)
+        // 清空本地数据
         token.value = ''
         username.value = ''
         avatar.value = ''
@@ -87,7 +83,7 @@ export const useUserStore = defineStore(
         return 'ok'
       } else {
         return Promise.reject(new Error(res.message))
-      } */
+      }
     }
     return {
       token,
