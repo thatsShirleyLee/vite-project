@@ -30,7 +30,7 @@ const route = useRoute()
           background-color="#001529"
           text-color="white"
           :default-active="route.path"
-          active-text-color="orange"
+          active-text-color="#409eff"
           :collapse="layOutSettingStore.isCollapse"
           style="transition: all 0.1s"
         >
@@ -86,7 +86,9 @@ const route = useRoute()
     height: $base-tabbar-height;
     left: $base-menu-width;
     top: 0;
+    background-color: white;
     transition: all 0.3s;
+    // box-shadow: 0 5px 10px #c0c0c0;
     &.collapse {
       width: calc(100% - $base-menu-min-width);
       left: $base-menu-min-width;
@@ -99,7 +101,7 @@ const route = useRoute()
     height: calc(100% - $base-tabbar-height);
     left: $base-menu-width;
     top: $base-tabbar-height;
-    background-color: pink;
+    background-color: #f5f5f5;
     padding: 20px;
     overflow: auto;
     transition: all 0.3s;

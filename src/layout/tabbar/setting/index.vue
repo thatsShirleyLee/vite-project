@@ -64,10 +64,7 @@ const logout = async () => {
     style="width: 32px; height: 32px; margin: 0px 12px"
   /> -->
   <!-- 真实头像 -->
-  <img
-    :src="userStore.avatar"
-    style="width: 32px; height: 32px; margin: 0px 12px"
-  />
+  <img :src="userStore.avatar" />
   <!-- 用户下拉菜单 -->
   <el-dropdown style="margin-right: 12px">
     <span class="el-dropdown-link">
@@ -87,5 +84,11 @@ const logout = async () => {
 <style scoped lang="scss">
 .el-dropdown-link {
   font-weight: bold;
+}
+img {
+  width: 32px;
+  height: 32px;
+  margin: 0px 12px;
+  border-radius: 50%;
 }
 </style>

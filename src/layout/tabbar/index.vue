@@ -22,12 +22,10 @@ import Setting from './setting/index.vue'
 
 <style scoped lang="scss">
 .tabbar {
-  z-index: 1;
   width: 100%;
   height: 100%;
   display: flex;
   justify-content: space-between;
-  background: white;
   .tabbar_left {
     display: flex;
     align-items: center;
