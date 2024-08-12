@@ -16,8 +16,8 @@ import { GET_TOKEN, SET_TOKEN, REMOVE_TOKEN } from '@/utils/token'
 import { constantRoute, asyncRoute, anyRoute } from '@/router/routes'
 
 //用于过滤当前用户需要展示的异步路由
-function filterAsyncRoute(asnycRoute: any, routes: any) {
-  return asnycRoute.filter((item: any) => {
+function filterAsyncRoute(asyncRoute: any, routes: any) {
+  return asyncRoute.filter((item: any) => {
     if (routes.includes(item.name)) {
       if (item.children && item.children.length > 0) {
         //硅谷333账号:product\trademark\attr\sku
@@ -58,7 +58,7 @@ export const useUserStore = defineStore(
         buttons.value = res.data.checkUser.buttons
         // 计算当前用户需要展示的异步路由
         // const userAsyncRoute = filterAsyncRoute(
-        //   cloneDeep(asnycRoute),
+        //   cloneDeep(asyncRoute),
         //   res.data.routes,
         // )
         // //菜单需要的数据整理完毕
