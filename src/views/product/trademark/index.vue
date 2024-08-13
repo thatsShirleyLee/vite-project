@@ -248,7 +248,7 @@ const handleAvatarSuccess: UploadProps['onSuccess'] = (
         <el-table-column label="品牌操作">
           <template #default="{ row, $index }">
             <el-button
-              type="warning"
+              type="primary"
               size="small"
               icon="Edit"
               @click="updateTrademark(row)"

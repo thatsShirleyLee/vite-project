@@ -107,7 +107,7 @@ const rules = {
           ref="loginForms"
         >
           <h1>Hello</h1>
-          <h2>欢迎来到硅谷甄选</h2>
+          <h2>欢迎来到电商运营平台</h2>
           <el-form-item prop="username">
             <el-input
               :prefix-icon="User"

@@ -10,6 +10,7 @@ import type {
   userInfoResponseData,
 } from '@/api/user/type'
 import type { UserState } from './types/type'
+import type { RouteRecordRaw } from 'vue-router'
 // 引入操作本地存储的工具方法
 import { GET_TOKEN, SET_TOKEN, REMOVE_TOKEN } from '@/utils/token'
 // 引入路由
@@ -31,11 +32,11 @@ function filterAsyncRoute(asyncRoute: any, routes: any) {
 export const useUserStore = defineStore(
   'user',
   () => {
-    let token = ref(GET_TOKEN() as string)
-    let username = ref('') // 用户名
-    let avatar = ref('') // 头像
-    let buttons = ref([]) // 按钮
-    let menuRoutes = ref(constantRoute) // 常量路由
+    let token = ref<string | null>(GET_TOKEN())
+    let username = ref<string>('') // 用户名
+    let avatar = ref<string>('') // 头像
+    let buttons = ref<string[]>([]) // 按钮
+    let menuRoutes = ref<RouteRecordRaw[]>(constantRoute) // 常量路由
     const userLogin = async (data: loginFormData) => {
       const res: loginResponseData = await reqLogin(data) // 登录请求
       if (res.code === 200) {
