@@ -259,7 +259,6 @@ const handleAvatarSuccess: UploadProps['onSuccess'] = (
             <el-popconfirm
               :title="`您确定要删除${row.tmName}?`"
               width="250px"
-              icon="Delete"
               @confirm="removeTrademark(row.id)"
             >
               <template #reference>

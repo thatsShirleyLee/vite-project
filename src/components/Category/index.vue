@@ -12,7 +12,7 @@ onMounted(() => {
 const handler = () => {
   // 需要将二级、三级分类的数据清空
   categoryStore.c2Id = ''
-  categoryStore.c3Arr = []
+  categoryStore.c3Attr = []
   categoryStore.c3Id = ''
   categoryStore.getC2()
 }
@@ -29,7 +29,7 @@ const handler1 = () => {
         <el-select
           v-model="categoryStore.c1Id"
           @change="handler"
-          :disabled="scene == 0 ? false : true"
+          :disabled="scene === 0 ? false : true"
         >
           <!-- label:即为展示数据 value:即为select下拉菜单收集的数据 -->
           <!-- el-option中的:value属性，它将绑定的值传递给el-select中的v-model绑定的值 -->

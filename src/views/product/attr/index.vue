@@ -30,11 +30,11 @@ watch(
     // 保证三级分类得有才能发请求
     if (!categoryStore.c3Id) return
     //获取分类的ID
-    getAttr()
+    getAttrList()
   },
 )
 // 获取属性列表
-const getAttr = async () => {
+const getAttrList = async () => {
   const { c1Id, c2Id, c3Id } = categoryStore
   const res: AttrResponseData = await reqAttr(c1Id, c2Id, c3Id)
   if (res.code === 200) {
@@ -124,7 +124,7 @@ const save = async () => {
       message: attrParams.id ? '修改成功' : '添加成功',
     })
     // 重新获取属性列表
-    getAttr()
+    getAttrList()
   }
 }
 // 修改属性
@@ -143,7 +143,7 @@ const removeAttr = async (attrId: number) => {
       message: '删除成功',
     })
     // 重新获取属性列表
-    getAttr()
+    getAttrList()
   } else {
     ElMessage({
       type: 'error',
@@ -169,7 +169,7 @@ onBeforeUnmount(() => {
     <Category :scene="scene" />
     <el-card style="margin: 10px 0">
       <!-- table -->
-      <div v-show="scene == 0">
+      <div v-show="scene === 0">
         <!-- 卡片顶部添加品牌按钮 -->
         <!-- 在我们没选择好三级菜单之前，添加属性按钮应该处于禁用状态 -->
         <el-button
@@ -218,7 +218,6 @@ onBeforeUnmount(() => {
               <el-popconfirm
                 :title="`您确定要删除${row.attrName}?`"
                 width="250px"
-                icon="Delete"
                 @confirm="removeAttr(row.id)"
               >
                 <template #reference>
@@ -232,7 +231,7 @@ onBeforeUnmount(() => {
         </el-table>
       </div>
       <!-- 添加属性编辑框 -->
-      <div v-show="scene == 1">
+      <div v-show="scene === 1">
         <!-- 展示添加属性与修改数据的结构 -->
         <el-form inline>
           <el-form-item label="属性名称">
