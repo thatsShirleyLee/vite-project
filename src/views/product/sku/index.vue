@@ -38,7 +38,7 @@ const getSkuList = async (pager = 1) => {
     total.value = res.data.total
   }
 }
-const sizeChange = (limit: number) => {
+const sizeChange = () => {
   getSkuList()
 }
 const updateSale = async (row: Sku) => {
