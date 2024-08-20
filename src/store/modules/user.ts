@@ -16,12 +16,11 @@ import { GET_TOKEN, SET_TOKEN, REMOVE_TOKEN } from '@/utils/token'
 // 引入路由
 import { constantRoute, asyncRoute, anyRoute } from '@/router/routes'
 
-//用于过滤当前用户需要展示的异步路由
+// 用于过滤当前用户需要展示的异步路由
 function filterAsyncRoute(asyncRoute: any, routes: any) {
   return asyncRoute.filter((item: any) => {
     if (routes.includes(item.name)) {
       if (item.children && item.children.length > 0) {
-        //硅谷333账号:product\trademark\attr\sku
         item.children = filterAsyncRoute(item.children, routes)
       }
       return true
