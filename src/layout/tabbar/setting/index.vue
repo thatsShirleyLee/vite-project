@@ -5,6 +5,7 @@ defineOptions({
 import { useLayOutSettingStore } from '@/store/modules/setting'
 import { useUserStore } from '@/store/modules/user'
 import { useRouter, useRoute } from 'vue-router'
+import { ref } from 'vue'
 const router = useRouter()
 const route = useRoute()
 
@@ -38,6 +39,40 @@ const logout = async () => {
     },
   })
 }
+
+// 暗黑模式
+let dark = ref<boolean>(false)
+const changeDark = () => {
+  // 获取HTML根节点
+  let html = document.documentElement
+  // 判断HTML标签是否有类名dark
+  dark.value ? (html.className = 'dark') : (html.className = '')
+}
+
+// 主题设置
+const predefineColors = ref([
+  '#ff4500',
+  '#ff8c00',
+  '#ffd700',
+  '#90ee90',
+  '#00ced1',
+  '#1e90ff',
+  '#c71585',
+  'rgba(255, 69, 0, 0.68)',
+  'rgb(255, 120, 0)',
+  'hsv(51, 100, 98)',
+  'hsva(120, 40, 94, 0.5)',
+  'hsl(181, 100%, 37%)',
+  'hsla(209, 100%, 56%, 0.73)',
+  '#c7158577',
+])
+const color = ref<string>('#409EFF')
+const setColor = () => {
+  // 获取HTML根节点
+  let html = document.documentElement
+  // 设置根节点的data-vite-color属性
+  html.style.setProperty('--el-color-primary', color.value)
+}
 </script>
 
 <template>
@@ -47,11 +82,21 @@ const logout = async () => {
   <el-popover placement="bottom" title="主题设置" :width="200" trigger="hover">
     <el-form>
       <el-form-item label="主题颜色">
-        <!-- <el-color-picker @change="setColor" v-model="color" show-alpha :predefine="predefineColors"
-          :teleported="false" /> -->
+        <el-color-picker
+          @change="setColor"
+          v-model="color"
+          show-alpha
+          :predefine="predefineColors"
+        />
       </el-form-item>
       <el-form-item label="暗黑模式">
-        <!-- <el-switch v-model="dark" inline-prompt active-icon="MoonNight" inactive-icon="Sunny" @change="changeDark" /> -->
+        <el-switch
+          v-model="dark"
+          inline-prompt
+          active-icon="MoonNight"
+          inactive-icon="Sunny"
+          @change="changeDark"
+        />
       </el-form-item>
     </el-form>
     <template #reference>

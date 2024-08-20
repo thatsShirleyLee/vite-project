@@ -17,7 +17,7 @@ const changeIcon = () => {
       <div class="logo-img" @click="changeIcon">
         <img :src="setting.logo" alt="" />
       </div>
-      <p>{{ setting.title }}</p>
+      <p>{{ layOutSettingStore.isCollapse ? '' : setting.title }}</p>
     </div>
   </div>
 </template>
