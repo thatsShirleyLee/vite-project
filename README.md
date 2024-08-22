@@ -20,7 +20,28 @@
 5. 掌握请求响应拦截器该如何二次封装
 6. 掌握SVG矢量图如何在项目中使用
 7. 掌握主题颜色切换与暗黑模式的切换
-
+# 0. 预览
+## 登录
+![登录](./project-preview-imgs/login.png)
+## 首页
+![首页](./project-preview-imgs/home.png)
+## 数据大屏
+![数据大屏](./project-preview-imgs/screen.png)
+## 权限管理
+![用户管理](./project-preview-imgs/user.png)
+![角色管理](./project-preview-imgs/role.png)
+![菜单管理](./project-preview-imgs/permission.png)
+## 商品管理
+![品牌管理](./project-preview-imgs/trademark.png)
+![属性管理](./project-preview-imgs/attr.png)
+![SPU管理](./project-preview-imgs/spu.png)
+> SPU: Standard Product Unit
+> 标准化产品单元，是商品信息聚合的最小单位，是商品特性相同的产品的集合。例如，一款手机就是一个 SPU，它包含了所有该手机的基本信息，如品牌、型号、价格等。
+> 
+![SKU管理](./project-preview-imgs/sku.png)
+> SKU: Stock Keeping Unit
+> 库存量单位，是商品库存进出记录的基本单元，可以区分不同规格、不同型号、不同颜色等不同属性的商品。例如，一款手机可能有不同的颜色、内存大小和版本，这些不同的组合都可以看作是不同的 SKU。
+简单来说，SKU 是针对具体商品的，而 SPU 是针对同一类商品的。一个 SPU 可以包含多个 SKU，每个 SKU 代表一种具体的产品组合。
 # 1. 项目构建
 
 ```zsh

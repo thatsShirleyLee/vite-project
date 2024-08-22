@@ -89,10 +89,10 @@ const removeSku = async (id: number) => {
 <template>
   <el-card>
     <el-table border style="margin: 10px 0" :data="skuList">
-      <el-table-column label="序号" type="index" width="80" align="center" />
-      <el-table-column label="名称" prop="skuName" width="220px" />
-      <el-table-column label="描述" prop="skuDesc" width="220px" />
-      <el-table-column label="图片" width="150px">
+      <el-table-column label="序号" type="index" width="80px" align="center" />
+      <el-table-column label="名称" prop="skuName" width="155px" />
+      <el-table-column label="描述" prop="skuDesc" width="200px" />
+      <el-table-column label="图片" width="110px" align="center">
         <template #default="{ row }">
           <img :src="row.skuDefaultImg" style="width: 100%; height: 100%" />
         </template>
@@ -100,9 +100,15 @@ const removeSku = async (id: number) => {
       <el-table-column
         label="重量"
         prop="weight"
-        width="80px"
+        width="70px"
+        align="center"
       ></el-table-column>
-      <el-table-column label="价格" prop="price" width="80px"></el-table-column>
+      <el-table-column
+        label="价格"
+        prop="price"
+        width="70px"
+        align="center"
+      ></el-table-column>
       <el-table-column label="操作">
         <template #="{ row }">
           <el-button
