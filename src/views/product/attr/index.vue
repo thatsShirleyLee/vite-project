@@ -173,6 +173,7 @@ onBeforeUnmount(() => {
         <!-- 卡片顶部添加品牌按钮 -->
         <!-- 在我们没选择好三级菜单之前，添加属性按钮应该处于禁用状态 -->
         <el-button
+          v-has="`btn.Attr.add`"
           icon="Plus"
           size="default"
           type="primary"

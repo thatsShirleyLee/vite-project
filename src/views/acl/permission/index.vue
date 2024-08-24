@@ -124,6 +124,7 @@ const removePermission = async (id: number) => {
       <el-table-column label="操作">
         <template #default="{ row }">
           <el-button
+            v-has="`btn.Permission.add`"
             type="primary"
             size="small"
             @click="addPermission(row)"

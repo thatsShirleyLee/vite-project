@@ -211,7 +211,9 @@ const reset = () => {
       </el-form>
     </el-card>
     <el-card style="margin: 10px 0">
-      <el-button type="primary" @click="addRole">添加职位</el-button>
+      <el-button v-has="`btn.Role.add`" type="primary" @click="addRole">
+        添加职位
+      </el-button>
       <el-table style="margin: 10px 0" border :data="roleList">
         <el-table-column label="#" type="index"></el-table-column>
         <el-table-column label="ID" prop="id"></el-table-column>

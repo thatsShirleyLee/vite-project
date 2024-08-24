@@ -132,6 +132,7 @@ onBeforeUnmount(() => {
       <!-- table -->
       <div v-show="scene === 0">
         <el-button
+          v-has="`btn.Spu.add`"
           icon="Plus"
           type="primary"
           :disabled="categoryStore.c3Id ? false : true"

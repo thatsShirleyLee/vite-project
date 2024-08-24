@@ -15,6 +15,11 @@ import type { RouteRecordRaw } from 'vue-router'
 import { GET_TOKEN, SET_TOKEN, REMOVE_TOKEN } from '@/utils/token'
 // 引入路由
 import { constantRoute, asyncRoute, anyRoute } from '@/router/routes'
+// 引入深拷贝方法
+// @ts-ignore
+import cloneDeep from 'lodash/cloneDeep'
+// 引入路由器
+import router from '@/router'
 
 // 用于过滤当前用户需要展示的异步路由
 function filterAsyncRoute(asyncRoute: any, routes: any) {
@@ -31,7 +36,7 @@ function filterAsyncRoute(asyncRoute: any, routes: any) {
 export const useUserStore = defineStore(
   'user',
   () => {
-    let token = ref<string | null>(GET_TOKEN())
+    let token = ref<string | null>('') // token
     let username = ref<string>('') // 用户名
     let avatar = ref<string>('') // 头像
     let buttons = ref<string[]>([]) // 按钮
@@ -40,7 +45,7 @@ export const useUserStore = defineStore(
       const res: loginResponseData = await reqLogin(data) // 登录请求
       if (res.code === 200) {
         token.value = res.data as string // 将token存储到仓库中
-        SET_TOKEN(token.value as string) //本地存储持久化存储一份
+        // SET_TOKEN(token.value as string) //本地存储持久化存储一份
         // 保证当前async函数返回一个成功的promise对象
         return 'ok'
       } else {
@@ -51,24 +56,26 @@ export const useUserStore = defineStore(
     const userInfo = async () => {
       // 获取用户信息
       const res: userInfoResponseData = await reqUserInfo() // reqUserInfo请求的URL,要求request携带token,所以可以在请求拦截器中进行设置
-      // console.log('用户信息', res);
       // 存储用户信息
       if (res.code === 200) {
         username.value = res.data.name
         avatar.value = res.data.avatar
+        buttons.value = res.data.buttons
         // 计算当前用户需要展示的异步路由
-        // const userAsyncRoute = filterAsyncRoute(
-        //   cloneDeep(asyncRoute),
-        //   res.data.routes,
-        // )
-        // //菜单需要的数据整理完毕
-        // menuRoutes = [...constantRoute, ...userAsyncRoute, ...anyRoute]
-        // //目前路由器管理的只有常量路由:用户计算完毕异步路由、任意路由动态追加
-        // ;[...userAsyncRoute, ...anyRoute].forEach((route: any) => {
-        //   router.addRoute(route)
-        // })
+        const userAsyncRoute = filterAsyncRoute(
+          cloneDeep(asyncRoute),
+          res.data.routes,
+        )
+        // 菜单需要的数据整理完毕
+        menuRoutes.value = [...constantRoute, ...userAsyncRoute, ...anyRoute]
+        // 目前路由器管理的只有常量路由: 用户计算完毕异步路由、任意路由动态追加
+        const userAllRoute = [...userAsyncRoute, ...anyRoute]
+        userAllRoute.forEach((route: any) => {
+          router.addRoute(route)
+        })
+        return 'ok'
       } else {
-        return Promise.reject(new Error(res.data.message))
+        return Promise.reject(new Error(res.message))
       }
     }
     const userLogout = async () => {
@@ -79,7 +86,7 @@ export const useUserStore = defineStore(
         token.value = ''
         username.value = ''
         avatar.value = ''
-        REMOVE_TOKEN()
+        // REMOVE_TOKEN()
         return 'ok'
       } else {
         return Promise.reject(new Error(res.message))
@@ -95,9 +102,10 @@ export const useUserStore = defineStore(
       userInfo,
       userLogout,
     }
-  }, // 持久化
+  },
+  // 持久化
   {
-    persist: true,
+    persist: true, // 将 store 的状态自动保存到 localStorage 中， 需要安装piniaPluginPersistedstate插件, 并且在 Pinia 配置中设置这个插件
   },
 )
 /* // 创建用户小仓库

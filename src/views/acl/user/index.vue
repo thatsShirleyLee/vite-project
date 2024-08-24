@@ -246,7 +246,9 @@ const reset = () => {
       </el-form>
     </el-card>
     <el-card style="margin: 10px 0">
-      <el-button type="primary" @click="addUser">添加用户</el-button>
+      <el-button v-has="`btn.User.add`" type="primary" @click="addUser">
+        添加用户
+      </el-button>
       <el-button
         type="primary"
         :disabled="toRemoveBatchUsers.length ? false : true"

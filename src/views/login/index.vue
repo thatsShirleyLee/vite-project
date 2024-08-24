@@ -45,11 +45,6 @@ const login = async () => {
   try {
     // 发请求
     await userStore.userLogin(loginForm)
-    // 请求成功跳转
-    // 跳转(如果路径中有redirect参数，则跳转到redirect参数，否则跳转到首页)
-    // debugger // 设置断点
-    const redirect: any = route.query.redirect
-    router.push({ path: redirect || '/' })
     ElNotification({
       // 弹窗提醒
       type: 'success',
@@ -57,6 +52,14 @@ const login = async () => {
       title: `Hi, ${getTime()}好！`,
     })
     loading.value = false
+    // 请求成功跳转
+    // 跳转(如果路径中有redirect参数，则跳转到redirect参数，否则跳转到首页)
+    // debugger // 设置断点
+    const redirect: any = route.query.redirect
+    router.push({ path: redirect || '/' })
+    // TODO
+    // 页面刷新(这里防止异步路由加载权限出现问题，暂时先这么做)
+    window.location.reload()
   } catch (error) {
     // 请求失败
     loading.value = false

@@ -203,6 +203,7 @@ const handleAvatarSuccess: UploadProps['onSuccess'] = (
     <el-card>
       <!-- 卡片顶部添加品牌按钮 -->
       <el-button
+        v-has="`btn.Trademark.add`"
         icon="Plus"
         size="default"
         type="primary"
