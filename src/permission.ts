@@ -8,8 +8,7 @@ nprogress.configure({ showSpinner: false })
 import { useUserStore } from '@/store/modules/user'
 import setting from '@/setting'
 import { ref } from 'vue'
-
-// 定义标识，记录路由是否添加
+// 定义标识，记录是否需要添加路由
 const hasRoles = ref(true)
 
 // 全局守卫:项目当中任意路由切换都会触发的钩子
@@ -21,7 +20,6 @@ router.beforeEach(async (to: any, from: any, next: any) => {
    * from: 你从哪个路由而来
    * next: 路由的放行函数
    */
-  nprogress.start()
   const userStore = useUserStore()
   // 获取token
   const token = userStore.token
@@ -47,12 +45,17 @@ router.beforeEach(async (to: any, from: any, next: any) => {
            * 这里如果切换账号登录，动态路由加载会出现问题，所以在登录的login中又强制页面刷新了一次，* 解决动态路由加载出错的问题
            * 具体参考src\views\login\index.vue(63-65行)
            */
+          console.log('添加前router', router.getRoutes())
           if (hasRoles.value) {
+            console.log('@@@@@@@@修改前hasRoles', hasRoles.value)
+            // 获取用户信息，动态加载路由
             await userStore.userInfo()
+            console.log('添加后router', router.getRoutes())
             hasRoles.value = false
-            console.log('userStore.buttons', userStore.buttons)
-            next(`${to.path}`)
+            // 确保路由已经加载完毕，再放行
+            next(to.path) // 会重新执行一次路由导航，进入else语句
           } else {
+            console.log('@@@@@@@@修改后hasRoles', hasRoles.value)
             next()
           }
         } catch (error) {
@@ -72,6 +75,7 @@ router.beforeEach(async (to: any, from: any, next: any) => {
       next({ path: '/login', query: { redirect: to.path } }) // 访问默认路由/home，未登录时直接执行该行代码，跳转到登录页，登录成功后跳转到/home
     }
   }
+  nprogress.start()
 })
 //全局后置守卫
 router.afterEach((to: any, from: any) => {
