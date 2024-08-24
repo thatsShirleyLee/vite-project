@@ -45,7 +45,7 @@ request.interceptors.response.use(
         break
       case 500:
         msg = '服务器出现问题'
-        break·
+        break
       default:
         msg = '无网络'
     }

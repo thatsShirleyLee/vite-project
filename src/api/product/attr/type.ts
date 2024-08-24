@@ -30,8 +30,9 @@ export interface Attr {
   id?: number
   attrName: string
   attrValueList: AttrValueList
-  categoryId?: number
+  categoryId?: string | number
   categoryLevel?: number
+  attrIdAndValueId?: string | number
 }
 export type AttrList = Attr[]
 export interface AttrResponseData extends ResponseData {

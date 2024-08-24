@@ -9,10 +9,10 @@ import type {
   loginResponseData,
   userInfoResponseData,
 } from '@/api/user/type'
-import type { UserState } from './types/type'
+// import type { UserState } from './types/type'
 import type { RouteRecordRaw } from 'vue-router'
 // 引入操作本地存储的工具方法
-import { GET_TOKEN, SET_TOKEN, REMOVE_TOKEN } from '@/utils/token'
+// import { GET_TOKEN, SET_TOKEN, REMOVE_TOKEN } from '@/utils/token'
 // 引入路由
 import { constantRoute, asyncRoute, anyRoute } from '@/router/routes'
 // 引入深拷贝方法

@@ -8,10 +8,10 @@ export interface Spu {
   spuName: string
   description: string
   category3Id: string | number
-  tmId: number
+  tmId: string | number
   spuSaleAttrList: null | SpuSaleAttr[]
   spuImageList: null | SpuImage[]
-  spuPosterList: null
+  spuPosterList?: null
 }
 export type SpuList = Spu[]
 export interface SpuListResponseData extends ResponseData {
@@ -35,7 +35,7 @@ export interface Trademark {
   logoUrl: string
 }
 export interface AllTradeMark extends ResponseData {
-  data: TradeMark[]
+  data: Trademark[]
 }
 
 export interface SpuImage {
@@ -82,6 +82,7 @@ export interface SpuSaleAttr {
   spuSaleAttrValueList: SpuSaleAttrValueList
   saleAttrValue?: string
   flag?: boolean
+  saleIdAndValueId?: string | number
 }
 export interface SpuSaleAttrList extends ResponseData {
   data: SpuSaleAttr[]

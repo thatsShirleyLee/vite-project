@@ -2,7 +2,6 @@
 defineOptions({
   name: 'Tabbar',
 })
-import { ArrowRight } from '@element-plus/icons-vue'
 import Breadcrumb from './breadcrumb/index.vue'
 import Setting from './setting/index.vue'
 </script>

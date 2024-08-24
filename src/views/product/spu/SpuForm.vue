@@ -12,6 +12,7 @@ import {
   SpuImage,
   SaleAttr,
   SpuSaleAttr,
+  SpuSaleAttrValue,
 } from '@/api/product/spu/type'
 import {
   reqAllTradeMark,
@@ -229,7 +230,7 @@ defineExpose({ initSpuParams, initAddSpu })
         v-model="spuParams.tmId"
       >
         <el-option
-          v-for="(item, index) in allTradeMark"
+          v-for="item in allTradeMark"
           :key="item.id"
           :label="item.tmName"
           :value="item.id"
@@ -334,7 +335,7 @@ defineExpose({ initSpuParams, initAddSpu })
           </template>
         </el-table-column>
         <el-table-column label="操作" width="80px">
-          <template #="{ row, $index }">
+          <template #="{ $index }">
             <el-button
               type="danger"
               size="small"

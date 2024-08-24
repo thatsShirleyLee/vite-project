@@ -56,7 +56,7 @@ const initAddSku = async (
 ) => {
   // 收集父组件传递过来的数据
   skuParams.category3Id = spu.category3Id
-  skuParams.spuId = spu.id
+  skuParams.spuId = spu.id!
   skuParams.tmId = spu.tmId
   // 获取平台属性
   const res1: AttrResponseData = await reqAttr(
@@ -66,10 +66,10 @@ const initAddSku = async (
   )
   attrList.value = res1.data
   // 获取销售属性
-  const res2: SpuSaleAttrList = await reqSpuSaleAttrList(skuParams.spuId)
+  const res2: SpuSaleAttrList = await reqSpuSaleAttrList(skuParams.spuId!)
   saleList.value = res2.data
   // 获取照片墙数据
-  const res3: SpuImageList = await reqSpuImageList(spu.id)
+  const res3: SpuImageList = await reqSpuImageList(spu.id!)
   imgList.value = res3.data
 }
 // 设置默认
@@ -200,7 +200,7 @@ defineExpose({ initAddSku })
         </el-table-column>
         <el-table-column label="名称" prop="imgName"></el-table-column>
         <el-table-column label="操作">
-          <template #="{ row, $index }">
+          <template #="{ row }">
             <el-button type="primary" size="small" @click="handle(row)">
               设置默认
             </el-button>

@@ -10,8 +10,8 @@ export interface User {
   username?: string
   password?: string
   name?: string
-  phone: null
-  roleName: string
+  phone?: null
+  roleName?: string
 }
 export type UserList = User[]
 export interface UserListResponseData extends ResponseData {

@@ -71,7 +71,7 @@ const login = async () => {
   }
 }
 // 自定义校验规则函数
-const validateUsername = (rule: any, value: string, callback: any) => {
+const validateUsername = (_rule: any, value: string, callback: any) => {
   //rule：校验规则对象
   //value:表单元素文本内容
   //callback:符合条件，callback放行通过，不符合：注入错误提示信息
@@ -82,7 +82,7 @@ const validateUsername = (rule: any, value: string, callback: any) => {
     callback(new Error('用户名长度不能小于5位'))
   }
 }
-const validatePassword = (rule: any, value: string, callback: any) => {
+const validatePassword = (_rule: any, value: string, callback: any) => {
   if (value.length >= 6) {
     callback()
   } else {

@@ -3,7 +3,6 @@ defineOptions({
   name: 'Home',
 })
 import { useUserStore } from '@/store/modules/user'
-import { onMounted } from 'vue'
 import { getTime } from '@/utils/time'
 const userStore = useUserStore()
 </script>

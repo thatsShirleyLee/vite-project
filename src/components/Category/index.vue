@@ -34,7 +34,7 @@ const handler1 = () => {
           <!-- label:即为展示数据 value:即为select下拉菜单收集的数据 -->
           <!-- el-option中的:value属性，它将绑定的值传递给el-select中的v-model绑定的值 -->
           <el-option
-            v-for="(c1, index) in categoryStore.c1Attr"
+            v-for="c1 in categoryStore.c1Attr"
             :key="c1.id"
             :label="c1.name"
             :value="c1.id"
@@ -48,7 +48,7 @@ const handler1 = () => {
           :disabled="scene == 0 ? false : true"
         >
           <el-option
-            v-for="(c2, index) in categoryStore.c2Attr"
+            v-for="c2 in categoryStore.c2Attr"
             :key="c2.id"
             :label="c2.name"
             :value="c2.id"
@@ -61,7 +61,7 @@ const handler1 = () => {
           :disabled="scene == 0 ? false : true"
         >
           <el-option
-            v-for="(c3, index) in categoryStore.c3Attr"
+            v-for="c3 in categoryStore.c3Attr"
             :key="c3.id"
             :label="c3.name"
             :value="c3.id"

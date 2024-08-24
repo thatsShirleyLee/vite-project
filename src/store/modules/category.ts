@@ -3,7 +3,7 @@ import { defineStore } from 'pinia'
 // 引入接口
 import { reqC1, reqC2, reqC3 } from '@/api/product/attr'
 import { ref } from 'vue'
-import type { CategoryResponseData } from '@/api/product/attr/types'
+import type { CategoryResponseData, CategoryObj } from '@/api/product/attr/type'
 
 export const useCategoryStore = defineStore('category', () => {
   let c1Attr = ref<CategoryObj[]>([]) // 存储一级分类的数据

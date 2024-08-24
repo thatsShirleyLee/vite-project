@@ -103,21 +103,21 @@ const save = async () => {
   }
 }
 // 表单验证规则
-const validateUsername = (rule: any, value: any, callback: any) => {
+const validateUsername = (_rule: any, value: any, callback: any) => {
   if (value.trim().length >= 8) {
     callback()
   } else {
     callback(new Error('用户名必须大于8位'))
   }
 }
-const validateName = (rule: any, value: any, callback: any) => {
+const validateName = (_rule: any, value: any, callback: any) => {
   if (value.trim().length >= 8) {
     callback()
   } else {
     callback(new Error('姓名必须大于8位'))
   }
 }
-const validatePassword = (rule: any, value: any, callback: any) => {
+const validatePassword = (_rule: any, value: any, callback: any) => {
   if (value.trim().length >= 6) {
     callback()
   } else {
@@ -138,9 +138,10 @@ const allRolesList = ref<RoleList>([]) // 存储全部职位的数据
 const userRole = ref<RoleList>([]) // 存储当前用户所拥有的职位数据
 // 分配角色
 const setRole = async (row: User) => {
-  let userRolelength = row.roleName === '' ? 0 : row.roleName.split(',').length
+  let userRolelength =
+    row.roleName === '' ? 0 : (row.roleName?.split(',').length ?? 0)
   Object.assign(userParams, row) // 存储已有的用户信息
-  const res: RoleListResponseData = await reqRolesList(row.id)
+  const res: RoleListResponseData = await reqRolesList(row.id!)
   if (res.code === 200) {
     allRolesList.value = res.data.allRolesList
     // 修改抽屉内部状态
@@ -392,7 +393,7 @@ const reset = () => {
                 @change="handleCheckedRolesChange"
               >
                 <el-checkbox
-                  v-for="(role, index) in allRolesList"
+                  v-for="role in allRolesList"
                   :key="role.id"
                   :value="role"
                 >

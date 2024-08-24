@@ -2,14 +2,18 @@
 defineOptions({
   name: 'Trademark',
 })
-import { ref, reactive, onMounted, nextTick } from 'vue'
+import { ref, reactive, onMounted } from 'vue'
 import {
   reqHasTrademark,
   reqAddOrUpdateTrademark,
   reqDeleteTrademark,
 } from '@/api/product/trademark'
-import type { Records, TradeMarkResponseData, TradeMark } from './type'
-import { ElMessage, UploadProps, formEmits } from 'element-plus'
+import type {
+  Records,
+  TradeMarkResponseData,
+  TradeMark,
+} from '@/api/product/trademark/type'
+import { ElMessage, UploadProps } from 'element-plus'
 // 当前页码
 let page = ref<number>(1)
 // 每一页展示多少条数据
@@ -77,14 +81,13 @@ const updateTrademark = (row: TradeMark) => {
   dialogFormVisible.value = true
   trademarkParams.id = row.id as number
   trademarkParams.tmName = row.tmName as string
-  trademarkParams.logoUrl = row.logoUrl as substring
+  trademarkParams.logoUrl = row.logoUrl as string
   //上面三行也可以用ES6的合并对象语法
   // Object.assign(trademarkParams, row)
   clearRules()
 }
 // 删除
 const removeTrademark = async (id: number) => {
-  console.log('删除')
   const res: any = await reqDeleteTrademark(id)
   if (res.code === 200) {
     ElMessage({
@@ -137,7 +140,7 @@ const confirm = async () => {
   clearDialog()
 }
 
-const validatorTmName = (rule: any, value: any, callback: any) => {
+const validatorTmName = (_rule: any, value: any, callback: any) => {
   // 是当表单元素触发blur时候,会触发此方法
   // 自定义校验规则
   if (value.trim().length >= 2) {
@@ -147,7 +150,7 @@ const validatorTmName = (rule: any, value: any, callback: any) => {
     callback(new Error('品牌名称位数大于等于两位'))
   }
 }
-const validatorLogoUrl = (rule: any, value: any, callback: any) => {
+const validatorLogoUrl = (_rule: any, value: any, callback: any) => {
   // 如果图片上传
   if (value) {
     callback()
@@ -187,7 +190,7 @@ const beforeAvatarUpload: UploadProps['beforeUpload'] = (rawFile) => {
 // 图片上传成功钩子
 const handleAvatarSuccess: UploadProps['onSuccess'] = (
   response,
-  uploadFile,
+  _uploadFile,
 ) => {
   // console.log('图片上传成功钩子触发')
   // response: 即为当前这次上传图片post请求服务器返回的数据
@@ -229,12 +232,12 @@ const handleAvatarSuccess: UploadProps['onSuccess'] = (
         ></el-table-column>
         <!-- <el-table-column label="品牌名称" prop="tmName"></el-table-column> -->
         <el-table-column label="品牌名称">
-          <template #default="{ row, $index }">
+          <template #default="{ row }">
             <pre style="color: #a0a0a0">{{ row.tmName }}</pre>
           </template>
         </el-table-column>
         <el-table-column label="品牌LOGO" prop="logoUrl">
-          <template #default="{ row, $index }">
+          <template #default="{ row }">
             <img
               :src="
                 row.logoUrl.substring(0, 7) === 'http://'
@@ -247,7 +250,7 @@ const handleAvatarSuccess: UploadProps['onSuccess'] = (
           </template>
         </el-table-column>
         <el-table-column label="品牌操作">
-          <template #default="{ row, $index }">
+          <template #default="{ row }">
             <el-button
               type="primary"
               size="small"

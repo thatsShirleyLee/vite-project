@@ -1,6 +1,6 @@
 // sku管理模块接口
 import request from '@/utils/request'
-import { SkuResponseData, SkuInfoData, Sku } from '.type'
+import { SkuResponseData, SkuInfoData, Sku } from './type'
 enum API {
   SKU_LIST = '/admin/product/list/', // {page}/{limit}
   SKU_INFO = '/admin/product/getSkuInfo/', // {skuId}

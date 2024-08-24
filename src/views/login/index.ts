@@ -2,7 +2,9 @@
 
 import { Ref } from 'vue'
 import * as THREE from 'three'
+// @ts-ignore
 import HALO from 'vanta/src/vanta.halo'
+// @ts-ignore
 import { VANTA } from 'vanta'
 
 export const useVantaBackground = (vantaRef: Ref<HTMLElement | null>) => {

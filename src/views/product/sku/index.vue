@@ -5,7 +5,7 @@ defineOptions({
 import {
   reqAllSkuList,
   reqSkuInfo,
-  updateSkuInfo,
+  // updateSkuInfo,
   removeSkuInfo,
   onSaleSku,
   cancelSaleSku,
@@ -26,7 +26,7 @@ const limit = ref<number>(10)
 const total = ref<number>(0)
 // 控制抽屉盒的展示与隐藏
 const drawer = ref<boolean>(false)
-const skuInfo = ref<Sku>({})
+const skuInfo = ref<any>({})
 onMounted(() => {
   getSkuList()
 })

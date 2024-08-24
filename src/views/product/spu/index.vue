@@ -88,11 +88,11 @@ const changeScene = (obj: any) => {
 }
 // 删除SPU
 const removeSpu = async (row: Spu) => {
-  const res: any = await reqRemoveSpu(row.id)
+  const res: any = await reqRemoveSpu(row.id!)
   if (res.code === 200) {
     ElMessage.success('删除成功')
     // 获取剩余的SPU列表展示
-    getSpuList(spuList.length > 1 ? page.value : page.value - 1)
+    getSpuList(spuList.value.length > 1 ? page.value : page.value - 1)
   } else {
     ElMessage.error('删除失败')
   }
@@ -227,7 +227,7 @@ onBeforeUnmount(() => {
           <el-table-column label="SKU价格" prop="price"></el-table-column>
           <el-table-column label="SKU重量" prop="weight"></el-table-column>
           <el-table-column label="SKU图片">
-            <template #="{ row, $index }">
+            <template #="{ row }">
               <img
                 :src="row.skuDefaultImg"
                 style="width: 100px; height: 100px"

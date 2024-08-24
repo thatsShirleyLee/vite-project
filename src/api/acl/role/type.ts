@@ -9,7 +9,7 @@ export interface Role {
   createTime?: string
   updateTime?: string
   roleName?: string
-  remark: null
+  remark?: null
 }
 export type RoleList = Role[]
 export interface RoleListResponseData extends ResponseData {

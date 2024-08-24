@@ -16,7 +16,6 @@ import {
   Role,
   RoleList,
   RoleListResponseData,
-  Menu,
   MenuList,
   MenuListResponseData,
 } from '@/api/acl/role/type'
@@ -74,7 +73,7 @@ const updateRole = (row: Role) => {
   })
 }
 // 验证规则
-const validatorRoleName = (rule: any, value: any, callback: any) => {
+const validatorRoleName = (_rule: any, value: any, callback: any) => {
   if (value.trim().length >= 2) {
     callback()
   } else {
@@ -168,7 +167,7 @@ const removeRole = async (id: number) => {
       type: 'success',
       message: '删除成功',
     })
-    getRoleList(roleList.length > 1 ? page.value : page.value - 1)
+    getRoleList(roleList.value.length > 1 ? page.value : page.value - 1)
   } else {
     ElMessage({
       type: 'error',

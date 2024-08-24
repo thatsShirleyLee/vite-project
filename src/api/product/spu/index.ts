@@ -7,8 +7,8 @@ import type {
   AllSaleAttr,
   SpuSaleAttrList,
   Spu,
-  SpuListResponseData,
   Sku,
+  SkuListResponseData,
 } from './type'
 enum API {
   SPU_LIST_URL = '/admin/product/', // {page}/{limit}?[可选参数, eg: category3Id]

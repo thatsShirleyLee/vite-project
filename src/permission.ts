@@ -13,7 +13,7 @@ const hasRoles = ref(true)
 
 // 全局守卫:项目当中任意路由切换都会触发的钩子
 // 全局前置守卫
-router.beforeEach(async (to: any, from: any, next: any) => {
+router.beforeEach(async (to: any, _from: any, next: any) => {
   document.title = `${setting.title} - ${to.meta.title}` // 浏览器标签页标题
   /*
    * to: 你将要访问那个路由
@@ -78,7 +78,7 @@ router.beforeEach(async (to: any, from: any, next: any) => {
   nprogress.start()
 })
 //全局后置守卫
-router.afterEach((to: any, from: any) => {
+router.afterEach((_to: any, _from: any) => {
   nprogress.done()
 })
 // 第一个问题：任意路由切换实现进度条业务 -- nprogress

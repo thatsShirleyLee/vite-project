@@ -57,14 +57,14 @@ const updatePermission = (row: MenuParams) => {
 }
 // 确定
 const menuForm = ref()
-const validatorName = (rule: any, value: any, callback: any) => {
+const validatorName = (_rule: any, value: any, callback: any) => {
   if (value.trim().length > 0) {
     callback()
   } else {
     callback(new Error('菜单名称不能为空'))
   }
 }
-const validatorCode = (rule: any, value: any, callback: any) => {
+const validatorCode = (_rule: any, value: any, callback: any) => {
   if (value.trim().length > 0) {
     callback()
   } else {

@@ -20,7 +20,7 @@ export const reqAddOrUpdateRole = (role: Role) => {
     return request.post<any, any>(API.ADD_ROLE_URL, role)
   }
 }
-export const reqMenuList = (roleId: numbe) =>
+export const reqMenuList = (roleId: number) =>
   request.get<any, MenuListResponseData>(`${API.MENU_LIST_URL}/${roleId}`)
 export const reqSetPermisstion = (roleId: number, permissionId: number[]) =>
   request.post<any, any>(
