@@ -45,17 +45,13 @@ router.beforeEach(async (to: any, _from: any, next: any) => {
            * 这里如果切换账号登录，动态路由加载会出现问题，所以在登录的login中又强制页面刷新了一次，* 解决动态路由加载出错的问题
            * 具体参考src\views\login\index.vue(63-65行)
            */
-          console.log('添加前router', router.getRoutes())
           if (hasRoles.value) {
-            console.log('@@@@@@@@修改前hasRoles', hasRoles.value)
             // 获取用户信息，动态加载路由
             await userStore.userInfo()
-            console.log('添加后router', router.getRoutes())
             hasRoles.value = false
             // 确保路由已经加载完毕，再放行
             next(to.path) // 会重新执行一次路由导航，进入else语句
           } else {
-            console.log('@@@@@@@@修改后hasRoles', hasRoles.value)
             next()
           }
         } catch (error) {

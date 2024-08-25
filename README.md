@@ -571,3 +571,41 @@ if (!/pnpm/.test(process.env.npm_execpath || '')) {
   "src/**/*.{html,vue,ts,js,json,md}": "prettier --write"
 }
 ```
+
+# 配置Nginx
+```
+server {
+  listen       8000;
+  server_name  localhost;
+
+  access_log /Users/shirley/Learn/vite-build/logs/host.access.log custom;
+  error_log  /Users/shirley/Learn/vite-build/logs/error.log error;
+
+  location / {        
+    root   /Users/shirley/Learn/尚硅谷前端技术文档/硅谷甄选/vite-project/dist;
+    index  index.html;
+    try_files $uri $uri/ /index.html;  # 处理 SPA 路由问题
+  }
+  # 代理 /prod-api/admin/product/ 请求到 8209
+  location /prod-api/admin/product/ {
+    add_header backendIP $upstream_addr always;  # 打印后端服务器 IP
+    rewrite ^/prod-api/admin/product/(.*)$ /admin/product/$1 break;  # 重写路径
+    proxy_pass http://139.198.104.58:8209;
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+  }
+
+    # 代理 /prod-api/admin/acl/ 请求到 8212
+    location /prod-api/admin/acl/ {
+      add_header backendIP $upstream_addr always;  # 打印后端服务器 IP
+      rewrite ^/prod-api/admin/acl/(.*)$ /admin/acl/$1 break;  # 重写路径
+      proxy_pass http://139.198.104.58:8212;
+      proxy_set_header Host $host;
+      proxy_set_header X-Real-IP $remote_addr;
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}
+```
