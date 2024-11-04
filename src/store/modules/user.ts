@@ -20,6 +20,8 @@ import { constantRoute, asyncRoute, anyRoute } from '@/router/routes'
 import cloneDeep from 'lodash/cloneDeep'
 // 引入路由器
 import router from '@/router'
+// 引入数据加密函数
+import { encryptData, decryptData } from '@/utils/crypto'
 
 // 用于过滤当前用户需要展示的异步路由
 function filterAsyncRoute(asyncRoute: any, routes: any) {

@@ -79,7 +79,7 @@ const setColor = () => {
   <!-- 顶部右侧的面包屑 -->
   <el-button icon="Refresh" circle @click="updateFresh"></el-button>
   <el-button icon="FullScreen" circle @click="fullScreen"></el-button>
-  <el-popover placement="bottom" title="主题设置" :width="200" trigger="hover">
+  <el-popover placement="bottom" title="主题设置" :width="200" trigger="click">
     <el-form>
       <el-form-item label="主题颜色">
         <el-color-picker
@@ -87,6 +87,7 @@ const setColor = () => {
           v-model="color"
           show-alpha
           :predefine="predefineColors"
+          :teleported="false"
         />
       </el-form-item>
       <el-form-item label="暗黑模式">

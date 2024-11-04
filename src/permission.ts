@@ -52,6 +52,7 @@ router.beforeEach(async (to: any, _from: any, next: any) => {
             // 确保路由已经加载完毕，再放行
             next(to.path) // 会重新执行一次路由导航，进入else语句
           } else {
+            // login页面强制又刷新一次，但是hasRoles.value已经是false了，所以不会再次执行路由导航，直接放行
             next()
           }
         } catch (error) {
