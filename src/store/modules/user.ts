@@ -21,7 +21,7 @@ import cloneDeep from 'lodash/cloneDeep'
 // 引入路由器
 import router from '@/router'
 // 引入数据加密函数
-import { encryptData, decryptData } from '@/utils/crypto'
+import { encryptData } from '@/utils/crypto'
 
 // 用于过滤当前用户需要展示的异步路由
 function filterAsyncRoute(asyncRoute: any, routes: any) {
@@ -43,10 +43,15 @@ export const useUserStore = defineStore(
     let avatar = ref<string>('') // 头像
     let buttons = ref<string[]>([]) // 按钮
     let menuRoutes = ref<RouteRecordRaw[]>(constantRoute) // 常量路由
+
     const userLogin = async (data: loginFormData) => {
       const res: loginResponseData = await reqLogin(data) // 登录请求
       if (res.code === 200) {
-        token.value = res.data as string // 将token存储到仓库中
+        // 加密token后存储
+        const encryptedToken = encryptData(res.data as string)
+        token.value = encryptedToken // 将token存储到仓库中
+        /* console.log(res.data);
+        token.value = res.data as string // 将token存储到仓库中 */
         // SET_TOKEN(token.value as string) //本地存储持久化存储一份
         // 保证当前async函数返回一个成功的promise对象
         return 'ok'
