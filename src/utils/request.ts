@@ -16,8 +16,7 @@ request.interceptors.request.use(
   (config) => {
     // 获取用户相关的小仓库，获取token,登录成功以后携带给服务器端
     const userStore = useUserStore()
-    config.headers.token =
-      userStore.token === '' ? userStore.token : decryptData(userStore.token) // 公共参数：每一次请求都会携带这个参数，所以是公共的
+    config.headers.token = decryptData(userStore.token) // 公共参数：每一次请求都会携带这个参数，所以是公共的
     return config // 含有headers属性，携带公共参数发给服务器端
   },
   (err) => {
